@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use function Laravel\Prompts\password;
 use function Laravel\Prompts\text;
 
-class CreateAdminCommand extends Command
+class MakeAdminCommand extends Command
 {
     protected $signature = 'make:admin {name?} {email?} {password?}';
 
