@@ -1,11 +1,11 @@
-<x-layout.dashboard class="space-y-6 px-40!" title="Nova Lista de Leads">
+<x-layout.dashboard class="space-y-6 px-40!" title="Novo Pedido">
     {{-- Header --}}
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="text-2xl font-bold text-blue-dark">
-            Nova Lista de Leads
+            Novo Pedido
         </h1>
 
-        <x-button tag="a" variant="ghost" href="{{ route('collections.index') }}" class="px-4">
+        <x-button tag="a" variant="ghost" href="{{ route('products.index') }}" class="px-4">
             Voltar
         </x-button>
     </div>
@@ -17,7 +17,7 @@
     @endif
 
     <x-card class="w-full">
-        <form action="{{ route('collections.store') }}" method="POST" class="space-y-6 w-full">
+        <form action="{{ route('products.store') }}" method="POST" class="space-y-6 w-full">
             @csrf
             <div class="space-y-2">
                 <label for="name" class="text-sm font-semibold text-gray-300">
@@ -66,7 +66,7 @@
             </div>
 
             <div class="flex flex-wrap items-center justify-end gap-3 pt-2">
-                <x-button tag="a" variant="ghost" href="{{ route('collections.index') }}" class="px-4">
+                <x-button tag="a" variant="ghost" href="{{ route('products.index') }}" class="px-4">
                     Cancelar
                 </x-button>
 

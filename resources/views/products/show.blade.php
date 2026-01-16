@@ -1,4 +1,4 @@
-<x-layout.dashboard class="space-y-6" title="Lista de Leads: {{ $collection->name }}">
+<x-layout.dashboard class="space-y-6" title="Pedido: {{ $collection->name }}">
     {{-- Header --}}
     <header class="flex flex-wrap items-start justify-between gap-4">
         <div class="space-y-3">
@@ -17,7 +17,7 @@
             @endif
 
             <div class="flex flex-wrap items-center gap-3 text-sm text-gray-300">
-                <a href="{{ route('collections.index') }}" class="font-semibold hover:text-blue-base">
+                <a href="{{ route('products.index') }}" class="font-semibold hover:text-blue-base">
                     ← Voltar
                 </a>
             </div>
@@ -26,7 +26,7 @@
         <div class="flex flex-wrap items-center gap-2">
             {{-- Edit --}}
             <a
-                href="{{ route('collections.edit', $collection) }}"
+                href="{{ route('products.edit', $collection) }}"
                 class="flex items-center justify-center cursor-pointer size-9 bg-gray-500 rounded"
                 title="Editar lista"
             >
@@ -41,7 +41,7 @@
             }">
                 <form
                     method="POST"
-                    :action="`{{ route('collections.destroy', $collection) }}`"
+                    :action="`{{ route('products.destroy', $collection) }}`"
                     @submit="if (!confirmDelete()) $event.preventDefault()"
                 >
                     @method('DELETE')
@@ -108,7 +108,7 @@
                             </x-button>
                         </x-slot>
 
-                        @include('collections.partials.contact.create')
+                        @include('products.partials.contact.create')
                     </x-modal>
 
                     {{-- Import CSV modal --}}
@@ -120,12 +120,12 @@
                             </x-button>
                         </x-slot>
 
-                        @include('collections.partials.contact.import', ['collection' => $collection])
+                        @include('products.partials.contact.import', ['collection' => $collection])
                     </x-modal>
                 </div>
 
                 {{-- Search --}}
-                <form method="GET" action="{{ route('collections.show', $collection) }}" class="flex items-center gap-2">
+                <form method="GET" action="{{ route('products.show', $collection) }}" class="flex items-center gap-2">
                     <div class="relative">
                         <x-lucide-search class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-gray-400" />
                         <input
@@ -137,7 +137,7 @@
                         />
                     </div>
                     @if (request('search'))
-                        <a href="{{ route('collections.show', $collection) }}" class="text-gray-400 hover:text-gray-200" title="Limpar busca">
+                        <a href="{{ route('products.show', $collection) }}" class="text-gray-400 hover:text-gray-200" title="Limpar busca">
                             <x-lucide-x class="size-5" />
                         </a>
                     @endif
@@ -239,7 +239,7 @@
                                     }">
                                         <form
                                             method="POST"
-                                            :action="`{{ route('collections.contacts.destroy', [$collection, $contact]) }}`"
+                                            :action="`{{ route('products.contacts.destroy', [$collection, $contact]) }}`"
                                             @submit="if (!confirmRemove()) $event.preventDefault()"
                                         >
                                             @method('DELETE')

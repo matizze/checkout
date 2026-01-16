@@ -1,6 +1,6 @@
 <div x-data="{}">
     <x-card class="w-full bg-white">
-        <form action="{{ route('collections.contacts.import', $collection) }}" method="POST" enctype="multipart/form-data" class="flex flex-col space-y-3 w-full">
+        <form action="{{ route('products.contacts.import', $collection) }}" method="POST" enctype="multipart/form-data" class="flex flex-col space-y-3 w-full">
             @csrf
 
             <div class="flex flex-col space-y-3">

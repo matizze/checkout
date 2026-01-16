@@ -1,5 +1,5 @@
 <div x-data="{}">
-    <form method="POST" action="{{ route('collections.contacts.store', $collection) }}">
+    <form method="POST" action="{{ route('products.contacts.store', $collection) }}">
         @csrf
 
         <x-card class="flex flex-col w-full bg-white p-4 gap-4">

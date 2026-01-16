@@ -1,12 +1,12 @@
-<x-layout.dashboard class="space-y-6" title="Editar Lista de Leads: {{ $collection->name }}">
+<x-layout.dashboard class="space-y-6" title="Editar Pedido: {{ $collection->name }}">
     {{-- Header --}}
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="text-2xl font-bold text-blue-dark">
-            Editar Lista de Leads
+            Editar Pedido
         </h1>
 
         <div class="flex flex-wrap items-center gap-3">
-            <x-button tag="a" variant="ghost" href="{{ route('collections.show', $collection) }}" class="px-4">
+            <x-button tag="a" variant="ghost" href="{{ route('products.show', $collection) }}" class="px-4">
                 Cancelar
             </x-button>
 
@@ -17,7 +17,7 @@
             }">
                 <form
                     method="POST"
-                    :action="`{{ route('collections.destroy', $collection) }}`"
+                    :action="`{{ route('products.destroy', $collection) }}`"
                     @submit="if (!confirmDelete()) $event.preventDefault()"
                     class="inline"
                 >
@@ -40,7 +40,7 @@
     @endif
 
     <x-card class="w-full">
-        <form action="{{ route('collections.update', $collection) }}" method="POST" class="space-y-6 w-full">
+        <form action="{{ route('products.update', $collection) }}" method="POST" class="space-y-6 w-full">
             @csrf
             @method('PUT')
 
@@ -105,7 +105,7 @@
             </div>
 
             <div class="flex flex-wrap items-center justify-end gap-3 pt-2">
-                <x-button tag="a" variant="ghost" href="{{ route('collections.show', $collection) }}" class="px-4">
+                <x-button tag="a" variant="ghost" href="{{ route('products.show', $collection) }}" class="px-4">
                     Voltar
                 </x-button>
 

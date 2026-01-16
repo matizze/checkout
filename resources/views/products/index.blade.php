@@ -4,7 +4,7 @@
             Listas de Leads
         </h1>
 
-        <x-button tag="a" href="{{ route('collections.create') }}" class="px-4">
+        <x-button tag="a" href="{{ route('products.create') }}" class="px-4">
             <x-lucide-plus class="size-4" />
             Novo
         </x-button>
@@ -22,7 +22,7 @@
             </thead>
 
             <tbody>
-                @forelse ($collections as $collection)
+                @forelse ($products as $collection)
                     @php
                         $contacts = $collection->contacts();
                     @endphp
@@ -52,7 +52,7 @@
 
                         <td class="flex gap-2 px-4 py-4">
                             <a
-                                href="{{ route('collections.show', $collection) }}"
+                                href="{{ route('products.show', $collection) }}"
                                 class="flex items-center justify-center cursor-pointer size-7 bg-gray-500 rounded"
                                 title="Ver"
                             >
@@ -60,7 +60,7 @@
                             </a>
 
                             <a
-                                href="{{ route('collections.edit', $collection) }}"
+                                href="{{ route('products.edit', $collection) }}"
                                 class="flex items-center justify-center cursor-pointer size-7 bg-gray-500 rounded"
                                 title="Editar"
                             >
@@ -74,7 +74,7 @@
                             }">
                                 <form
                                     method="POST"
-                                    :action="`{{ route('collections.destroy', $collection) }}`"
+                                    :action="`{{ route('products.destroy', $collection) }}`"
                                     @submit="if (!confirmDelete()) $event.preventDefault()"
                                 >
                                     @method('DELETE')
