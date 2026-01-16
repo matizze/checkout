@@ -47,3 +47,4 @@ curl -X GET https://www.asaas.com/api/v3/payments/pay_4zx48vneo4biu3pk/pixQrCode
 ```
 
 _Nota:_ A URL base correta é `https://www.asaas.com/api/v3/` (não `https://api.asaas.com`).
+# checkout
