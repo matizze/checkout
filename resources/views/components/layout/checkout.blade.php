@@ -28,7 +28,7 @@
                             <span class="hidden w-max text-sm font-medium text-primary sm:inline dark:text-primary-dark">Produto</span>
                         @else
                             {{-- Current --}}
-                            <span class="flex size-8 items-center justify-center rounded-full border border-primary bg-primary font-bold text-on-primary outline outline-2 outline-offset-2 outline-primary dark:border-primary-dark dark:bg-primary-dark dark:text-on-primary-dark dark:outline-primary-dark" aria-current="step">1</span>
+                            <span class="flex size-8 items-center justify-center rounded-full border border-primary bg-primary font-bold text-on-primary outline-2 outline-offset-2 outline-primary dark:border-primary-dark dark:bg-primary-dark dark:text-on-primary-dark dark:outline-primary-dark" aria-current="step">1</span>
                             <span class="hidden w-max text-sm font-bold text-primary sm:inline dark:text-primary-dark">Produto</span>
                         @endif
                     </div>
@@ -50,7 +50,7 @@
                             <span class="hidden w-max text-sm font-medium text-primary sm:inline dark:text-primary-dark">Dados</span>
                         @elseif($step === 2)
                             {{-- Current --}}
-                            <span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-primary bg-primary font-bold text-on-primary outline outline-2 outline-offset-2 outline-primary dark:border-primary-dark dark:bg-primary-dark dark:text-on-primary-dark dark:outline-primary-dark">2</span>
+                            <span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-primary bg-primary font-bold text-on-primary outline-2 outline-offset-2 outline-primary dark:border-primary-dark dark:bg-primary-dark dark:text-on-primary-dark dark:outline-primary-dark">2</span>
                             <span class="hidden w-max text-sm font-bold text-primary sm:inline dark:text-primary-dark">Dados</span>
                         @else
                             {{-- Upcoming --}}
@@ -76,7 +76,7 @@
                             <span class="hidden w-max text-sm font-medium text-primary sm:inline dark:text-primary-dark">Pagamento</span>
                         @elseif($step === 3)
                             {{-- Current --}}
-                            <span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-primary bg-primary font-bold text-on-primary outline outline-2 outline-offset-2 outline-primary dark:border-primary-dark dark:bg-primary-dark dark:text-on-primary-dark dark:outline-primary-dark">3</span>
+                            <span class="flex size-8 shrink-0 items-center justify-center rounded-full border border-primary bg-primary font-bold text-on-primary outline-2 outline-offset-2 outline-primary dark:border-primary-dark dark:bg-primary-dark dark:text-on-primary-dark dark:outline-primary-dark">3</span>
                             <span class="hidden w-max text-sm font-bold text-primary sm:inline dark:text-primary-dark">Pagamento</span>
                         @else
                             {{-- Upcoming --}}
