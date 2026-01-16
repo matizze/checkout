@@ -31,7 +31,7 @@ jobs:
 
       - name: Build & Push
         run: |
-          REGISTRY="ghcr.io/matizze/gmdisparos"
+          REGISTRY="ghcr.io/matizze/checkout"
           GIT_HASH="${{ steps.vars.outputs.sha_short }}"
           BRANCH="${{ steps.vars.outputs.branch_name }}"
 
@@ -41,7 +41,7 @@ jobs:
             --build-arg WWWUSER=1000 \
             --build-arg WWWGROUP=1000 \
             -f deployment/Dockerfile \
-            -t gmdisparos:${GIT_HASH} \
+            -t checkout:${GIT_HASH} \
             -t ${REGISTRY}:${GIT_HASH} \
             -t ${REGISTRY}:${BRANCH} \
             -t ${REGISTRY}:latest \
