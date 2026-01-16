@@ -31,4 +31,41 @@
 
     --text-md: 16px;
     --text-xss: 10px;
+
+    /* Light Theme (Penguin UI) */
+    --color-surface: var(--color-white);
+    --color-surface-alt: var(--color-neutral-100);
+    --color-on-surface: var(--color-neutral-600);
+    --color-on-surface-strong: var(--color-neutral-900);
+    --color-primary: var(--color-black);
+    --color-on-primary: var(--color-neutral-100);
+    --color-secondary: var(--color-neutral-800);
+    --color-on-secondary: var(--color-white);
+    --color-outline: transparent;
+    --color-outline-strong: var(--color-neutral-800);
+
+    /* Dark Theme (Penguin UI) */
+    --color-surface-dark: var(--color-neutral-950);
+    --color-surface-dark-alt: var(--color-neutral-800);
+    --color-on-surface-dark: var(--color-neutral-400);
+    --color-on-surface-dark-strong: var(--color-neutral-100);
+    --color-primary-dark: var(--color-white);
+    --color-on-primary-dark: var(--color-black);
+    --color-secondary-dark: var(--color-neutral-300);
+    --color-on-secondary-dark: var(--color-black);
+    --color-outline-dark: var(--color-neutral-700);
+    --color-outline-dark-strong: var(--color-neutral-300);
+
+    /* Shared Colors (Penguin UI) */
+    --color-info: var(--color-sky-500);
+    --color-on-info: var(--color-white);
+    --color-success: var(--color-green-300);
+    --color-on-success: var(--color-slate-900);
+    --color-warning: var(--color-amber-300);
+    --color-on-warning: var(--color-amber-900);
+    --color-danger: var(--color-red-500);
+    --color-on-danger: var(--color-white);
+
+    /* Border Radius (Penguin UI) */
+    --radius-radius: var(--radius-none);
 }
