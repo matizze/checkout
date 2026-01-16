@@ -69,7 +69,7 @@ if [ "$CONTAINER_MODE" = "app" ]; then
     if [ -n "${APP_ADMIN_NAME}" ] && [ -n "${APP_ADMIN_EMAIL}" ] && [ -n "${APP_ADMIN_PASSWORD}" ]; then
         echo "Creating a admin user..."
         php artisan migrate --force
-        php artisan create:admin
+        php artisan make:admin
     fi
 else
     echo "Skipping database initializations for mode: $CONTAINER_MODE"
