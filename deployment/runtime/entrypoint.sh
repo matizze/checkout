@@ -2,7 +2,7 @@
 set -e
 
 PORT=${PORT:-8000}
-APP_ROOT="${ROOT:-/var/www/html}"
+APP_ROOT="${ROOT:-/app}"
 
 # Ensure we're in the app directory
 cd "$APP_ROOT" || { echo "ERROR: Failed to cd to $APP_ROOT"; exit 1; }
@@ -44,18 +44,6 @@ else
 fi
 
 if [ "$CONTAINER_MODE" = "app" ]; then
-    if [ -d "/queries" ]; then
-        echo "Running initialization queries from /queries/..."
-        for sql_file in /queries/*.sql; do
-            if [ -f "$sql_file" ]; then
-                echo "Executing $sql_file..."
-                PGPASSWORD="$DB_PASSWORD" psql -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USERNAME" -d postgres -f "$sql_file"
-            fi
-        done
-    else
-        echo "/queries directory not found, skipping initialization queries"
-    fi
-
     if [ "${RUN_MIGRATIONS}" = "true" ]; then
         echo "RUN_MIGRATIONS is set true Running migrations..."
         php artisan migrate --force

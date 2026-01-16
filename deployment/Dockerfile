@@ -47,7 +47,6 @@ COPY --from=assets /src/public/build ./public/build
 
 # Entrypoint + Queries
 COPY --chmod=755 deployment/runtime/entrypoint.sh /entrypoint.sh
-COPY deployment/runtime/queries /queries
 
 # User + permissions
 RUN groupadd -g ${WWWGROUP} ${APP_USER} \
