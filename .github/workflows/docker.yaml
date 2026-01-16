@@ -1,0 +1,58 @@
+name: Build & Push Docker (GHCR)
+on:
+  push:
+    branches: [development, main]
+  pull_request:
+    branches: [development, main]
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set outputs
+        id: vars
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+          echo "branch_name=$(git rev-parse --abbrev-ref HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Login GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & Push
+        run: |
+          REGISTRY="ghcr.io/matizze/gmdisparos"
+          GIT_HASH="${{ steps.vars.outputs.sha_short }}"
+          BRANCH="${{ steps.vars.outputs.branch_name }}"
+
+          echo "Building ${REGISTRY}:${GIT_HASH} (${BRANCH})"
+
+          docker build \
+            --build-arg WWWUSER=1000 \
+            --build-arg WWWGROUP=1000 \
+            -f deployment/Dockerfile \
+            -t gmdisparos:${GIT_HASH} \
+            -t ${REGISTRY}:${GIT_HASH} \
+            -t ${REGISTRY}:${BRANCH} \
+            -t ${REGISTRY}:latest \
+            .
+
+          docker push ${REGISTRY}:${GIT_HASH}
+          docker push ${REGISTRY}:${BRANCH}
+          docker push ${REGISTRY}:latest
+
+          echo "✅ Pushed: ${REGISTRY}:${GIT_HASH}"
+
+      - name: Dokploy Deploy
+        run: |
+          curl -X POST ${{ secrets.DOKPLOY_WEBHOOK }}
