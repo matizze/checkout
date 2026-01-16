@@ -2,7 +2,7 @@
     <div class="space-y-6 w-full">
         <div>
             <h2 class="text-xl font-bold text-blue-dark">Atualizar senha</h2>
-            <p class="text-sm text-gray-300 mt-1">
+            <p class="text-sm text-grayin-300 mt-1">
                 Certifique-se de que sua conta está usando uma senha longa e aleatória para se manter segura
             </p>
         </div>

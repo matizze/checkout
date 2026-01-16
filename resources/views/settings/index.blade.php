@@ -5,7 +5,7 @@
             <h1 class="text-2xl font-bold text-blue-dark">
                 Configurações
             </h1>
-            <p class="text-sm text-gray-300 mt-1">
+            <p class="text-sm text-grayin-300 mt-1">
                 Gerencie seu perfil e configurações da conta
             </p>
         </header>
@@ -19,7 +19,7 @@
                     @class([
                         'flex items-center gap-3 px-4 py-3 text-sm transition-colors border-l-4',
                         'border-blue-base text-blue-dark font-semibold' => $active === 'profile',
-                        'border-transparent text-gray-300 hover:text-gray-100 hover:border-gray-500' => $active !== 'profile',
+                        'border-transparent text-grayin-300 hover:text-grayin-100 hover:border-grayin-500' => $active !== 'profile',
                     ])
                 >
                     <x-lucide-user class="size-4" />
@@ -31,7 +31,7 @@
                     @class([
                         'flex items-center gap-3 px-4 py-3 text-sm transition-colors border-l-4',
                         'border-blue-base text-blue-dark font-semibold' => $active === 'password',
-                        'border-transparent text-gray-300 hover:text-gray-100 hover:border-gray-500' => $active !== 'password',
+                        'border-transparent text-grayin-300 hover:text-grayin-100 hover:border-grayin-500' => $active !== 'password',
                     ])
                 >
                     <x-lucide-lock class="size-4" />

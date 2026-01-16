@@ -12,8 +12,8 @@
     >
         <x-avatar :name="auth()->user()->name"/>
         <span class="text-sm font-medium text-left">
-            <h1 class="text-gray-500">{{ auth()->user()->name }}</h1>
-            <p class="text-gray-400 text-xs truncate">{{ auth()->user()->email }}</p>
+            <h1 class="text-grayin-500">{{ auth()->user()->name }}</h1>
+            <p class="text-grayin-400 text-xs truncate">{{ auth()->user()->email }}</p>
         </span>
     </button>
 
@@ -27,11 +27,11 @@
         x-transition:leave="transition ease-in duration-75"
         x-transition:leave-start="opacity-100 scale-100"
         x-transition:leave-end="opacity-0 scale-95"
-        class="absolute bottom-0 left-full w-56 bg-gray-200 rounded-lg shadow-lg border border-gray-300/20 overflow-hidden"
+        class="absolute bottom-0 left-full w-56 bg-grayin-200 rounded-lg shadow-lg border border-grayin-300/20 overflow-hidden"
     >
         <!-- Header -->
-        <div class="px-4 pb-1.5 pt-2.5 border-b border-gray-100/10">
-            <p class="text-xss font-semibold text-gray-400 uppercase tracking-wider">Opções</p>
+        <div class="px-4 pb-1.5 pt-2.5 border-b border-grayin-100/10">
+            <p class="text-xss font-semibold text-grayin-400 uppercase tracking-wider">Opções</p>
         </div>
 
         <!-- Menu Items -->
@@ -39,7 +39,7 @@
             <!-- Configurações -->
             <a
                 href="{{ route('settings.index') }}"
-                class="flex items-center gap-3 px-4 py-2.5 text-xs text-gray-400 hover:bg-gray-100/40 transition-colors"
+                class="flex items-center gap-3 px-4 py-2.5 text-xs text-grayin-400 hover:bg-grayin-100/40 transition-colors"
             >
                 <x-lucide-settings class="size-3.5" />
                 <span>Configurações</span>

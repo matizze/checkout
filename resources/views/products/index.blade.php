@@ -12,53 +12,53 @@
 
     @if (session('status'))
         <x-card class="border border-feedback-done/30 bg-feedback-done/10">
-            <p class="text-sm text-gray-300">{{ session('status') }}</p>
+            <p class="text-sm text-grayin-300">{{ session('status') }}</p>
         </x-card>
     @endif
 
-    <section class="border-dotted border border-gray-500 rounded-lg overflow-x-auto">
+    <section class="border-dotted border border-grayin-500 rounded-lg overflow-x-auto">
         <table class="w-full min-w-180">
             <thead>
                 <tr>
-                    <th class="px-4 py-4 text-start text-sm text-gray-400">Imagem</th>
-                    <th class="px-4 py-4 text-start text-sm text-gray-400">Nome</th>
-                    <th class="px-4 py-4 text-start text-sm text-gray-400">Descricao</th>
-                    <th class="px-4 py-4 text-start text-sm text-gray-400">Preco</th>
+                    <th class="px-4 py-4 text-start text-sm text-grayin-400">Imagem</th>
+                    <th class="px-4 py-4 text-start text-sm text-grayin-400">Nome</th>
+                    <th class="px-4 py-4 text-start text-sm text-grayin-400">Descricao</th>
+                    <th class="px-4 py-4 text-start text-sm text-grayin-400">Preco</th>
                     <th class="px-4 py-4 w-10"></th>
                 </tr>
             </thead>
 
             <tbody>
                 @forelse ($products as $product)
-                    <tr class="border-t border-dotted border-gray-500">
+                    <tr class="border-t border-dotted border-grayin-500">
                         <td class="px-4 py-4">
                             @if ($product->image)
                                 <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="size-12 object-cover rounded">
                             @else
-                                <div class="size-12 bg-gray-500 rounded flex items-center justify-center">
-                                    <x-lucide-image class="size-5 text-gray-400" />
+                                <div class="size-12 bg-grayin-500 rounded flex items-center justify-center">
+                                    <x-lucide-image class="size-5 text-grayin-400" />
                                 </div>
                             @endif
                         </td>
 
                         <td class="px-4 py-4">
-                            <span class="text-sm text-gray-200">
+                            <span class="text-sm text-grayin-200">
                                 {{ $product->name }}
                             </span>
                         </td>
 
                         <td class="px-4 py-4">
                             @if (!empty($product->description))
-                                <span class="text-sm text-gray-200">
+                                <span class="text-sm text-grayin-200">
                                     {{ Str::limit($product->description, 50) }}
                                 </span>
                             @else
-                                <span class="text-sm text-gray-400">-</span>
+                                <span class="text-sm text-grayin-400">-</span>
                             @endif
                         </td>
 
                         <td class="px-4 py-4">
-                            <span class="text-sm text-gray-200">
+                            <span class="text-sm text-grayin-200">
                                 R$ {{ number_format($product->price, 2, ',', '.') }}
                             </span>
                         </td>
@@ -66,7 +66,7 @@
                         <td class="flex gap-2 px-4 py-4">
                             <a
                                 href="{{ route('products.show', $product) }}"
-                                class="flex items-center justify-center cursor-pointer size-7 bg-gray-500 rounded"
+                                class="flex items-center justify-center cursor-pointer size-7 bg-grayin-500 rounded"
                                 title="Ver"
                             >
                                 <x-lucide-eye class="size-3" />
@@ -74,7 +74,7 @@
 
                             <a
                                 href="{{ route('products.edit', $product) }}"
-                                class="flex items-center justify-center cursor-pointer size-7 bg-gray-500 rounded"
+                                class="flex items-center justify-center cursor-pointer size-7 bg-grayin-500 rounded"
                                 title="Editar"
                             >
                                 <x-lucide-pen-line class="size-3" />
@@ -105,7 +105,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-4 py-4 text-center text-gray-400">
+                        <td colspan="5" class="px-4 py-4 text-center text-grayin-400">
                             Nenhum produto encontrado.
                         </td>
                     </tr>

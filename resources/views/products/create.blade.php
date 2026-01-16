@@ -11,7 +11,7 @@
 
     @if (session('status'))
         <x-card class="border border-feedback-done/30 bg-feedback-done/10">
-            <p class="text-sm text-gray-300">{{ session('status') }}</p>
+            <p class="text-sm text-grayin-300">{{ session('status') }}</p>
         </x-card>
     @endif
 
@@ -20,7 +20,7 @@
             @csrf
 
             <div class="space-y-2">
-                <label for="name" class="text-sm font-semibold text-gray-300">
+                <label for="name" class="text-sm font-semibold text-grayin-300">
                     Nome do produto
                 </label>
 
@@ -30,7 +30,7 @@
                     name="name"
                     value="{{ old('name') }}"
                     placeholder="Ex.: Camiseta Preta"
-                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
+                    class="w-full rounded-md bg-white border border-grayin-500 px-4 py-3 text-grayin-100 placeholder:text-grayin-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
                     required
                 >
 
@@ -42,7 +42,7 @@
             </div>
 
             <div class="space-y-2">
-                <label for="description" class="text-sm font-semibold text-gray-300">
+                <label for="description" class="text-sm font-semibold text-grayin-300">
                     Descricao (opcional)
                 </label>
 
@@ -51,7 +51,7 @@
                     name="description"
                     rows="4"
                     placeholder="Ex.: Camiseta 100% algodao"
-                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
+                    class="w-full rounded-md bg-white border border-grayin-500 px-4 py-3 text-grayin-100 placeholder:text-grayin-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
                 >{{ old('description') }}</textarea>
 
                 @error('description')
@@ -62,7 +62,7 @@
             </div>
 
             <div class="space-y-2">
-                <label for="price" class="text-sm font-semibold text-gray-300">
+                <label for="price" class="text-sm font-semibold text-grayin-300">
                     Preco
                 </label>
 
@@ -74,7 +74,7 @@
                     placeholder="0,00"
                     step="0.01"
                     min="0"
-                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
+                    class="w-full rounded-md bg-white border border-grayin-500 px-4 py-3 text-grayin-100 placeholder:text-grayin-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
                     required
                 >
 
@@ -86,7 +86,7 @@
             </div>
 
             <div class="space-y-2">
-                <label for="image" class="text-sm font-semibold text-gray-300">
+                <label for="image" class="text-sm font-semibold text-grayin-300">
                     Imagem (opcional)
                 </label>
 
@@ -95,7 +95,7 @@
                     id="image"
                     name="image"
                     accept="image/*"
-                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-gray-500 file:text-gray-200 hover:file:bg-gray-400"
+                    class="w-full rounded-md bg-white border border-grayin-500 px-4 py-3 text-grayin-100 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-grayin-500 file:text-grayin-200 hover:file:bg-grayin-400"
                 >
 
                 @error('image')

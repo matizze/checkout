@@ -3,63 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of orders.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $orders = Order::with(['customer', 'payment'])
+            ->latest()
+            ->paginate(15);
+
+        return view('orders.index', compact('orders'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified order.
      */
-    public function create()
+    public function show(Order $order): View
     {
-        //
-    }
+        $order->load(['customer', 'items.product', 'payment']);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Order $order)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Order $order)
-    {
-        //
+        return view('orders.show', compact('order'));
     }
 }

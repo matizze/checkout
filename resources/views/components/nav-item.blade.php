@@ -13,8 +13,8 @@
     href="{{ $route ? route($route) : $href }}"
     @class([
         'flex items-center justify-start rounded gap-3 p-3',
-        'bg-blue-dark text-gray-600' => $active,
-        'bg-gray-100 text-gray-400 hover:bg-gray-200 hover:text-gray-500' => ! $active,
+        'bg-blue-dark text-grayin-600' => $active,
+        'bg-grayin-100 text-grayin-400 hover:bg-grayin-200 hover:text-grayin-500' => ! $active,
     ])
 >
     <x-icon :name="'lucide-' . $icon" class="size-5" />

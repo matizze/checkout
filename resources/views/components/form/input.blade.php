@@ -16,13 +16,13 @@
 @enderror
 
 <div class="group">
-    <label for={{ $name }} class="uppercase transition-colors text-xss block {{ $hasError ? 'text-red-500' : 'text-gray-300 group-focus-within:text-indigo-500' }}">{{ $label }}</label>
+    <label for={{ $name }} class="uppercase transition-colors text-xss block {{ $hasError ? 'text-red-500' : 'text-grayin-300 group-focus-within:text-indigo-500' }}">{{ $label }}</label>
     <input
         type="{{ $type }}"
         name="{{ $name }}"
         id="{{ $name }}"
         value="{{ old($name, $value) }}"
-        class="h-10 w-full text-sm text-gray-200 border-0 border-b border-gray-500 placeholder:text-gray-400 placeholder:text-sm focus:outline-none focus:border-indigo-500 focus:border-b-2 transition-colors"
+        class="h-10 w-full text-sm text-grayin-200 border-0 border-b border-grayin-500 placeholder:text-grayin-400 placeholder:text-sm focus:outline-none focus:border-indigo-500 focus:border-b-2 transition-colors"
         {{ $attributes }}
     />
 

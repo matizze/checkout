@@ -5,7 +5,7 @@
                 {{ $product->name }}
             </h1>
 
-            <div class="flex flex-wrap items-center gap-3 text-sm text-gray-300">
+            <div class="flex flex-wrap items-center gap-3 text-sm text-grayin-300">
                 <a href="{{ route('products.index') }}" class="font-semibold hover:text-blue-base">
                     ← Voltar
                 </a>
@@ -15,7 +15,7 @@
         <div class="flex flex-wrap items-center gap-2">
             <a
                 href="{{ route('products.edit', $product) }}"
-                class="flex items-center justify-center cursor-pointer size-9 bg-gray-500 rounded"
+                class="flex items-center justify-center cursor-pointer size-9 bg-grayin-500 rounded"
                 title="Editar produto"
             >
                 <x-lucide-pen-line class="size-4" />
@@ -47,7 +47,7 @@
 
     @if (session('status'))
         <x-card class="border border-feedback-done/30 bg-feedback-done/10">
-            <p class="text-sm text-gray-300">{{ session('status') }}</p>
+            <p class="text-sm text-grayin-300">{{ session('status') }}</p>
         </x-card>
     @endif
 
@@ -56,8 +56,8 @@
             @if ($product->image)
                 <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="w-full h-64 object-cover rounded-lg">
             @else
-                <div class="w-full h-64 bg-gray-500 rounded-lg flex items-center justify-center">
-                    <x-lucide-image class="size-16 text-gray-400" />
+                <div class="w-full h-64 bg-grayin-500 rounded-lg flex items-center justify-center">
+                    <x-lucide-image class="size-16 text-grayin-400" />
                 </div>
             @endif
         </x-card>
@@ -65,27 +65,27 @@
         <x-card class="md:col-span-2">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div class="space-y-1">
-                    <p class="text-sm font-medium text-gray-400">Nome</p>
-                    <p class="text-lg font-semibold text-gray-200">{{ $product->name }}</p>
+                    <p class="text-sm font-medium text-grayin-400">Nome</p>
+                    <p class="text-lg font-semibold text-grayin-200">{{ $product->name }}</p>
                 </div>
 
                 <div class="space-y-1">
-                    <p class="text-sm font-medium text-gray-400">Preco</p>
+                    <p class="text-sm font-medium text-grayin-400">Preco</p>
                     <p class="text-2xl font-bold text-blue-base">R$ {{ number_format($product->price, 2, ',', '.') }}</p>
                 </div>
 
                 <div class="space-y-1 sm:col-span-2">
-                    <p class="text-sm font-medium text-gray-400">Descricao</p>
+                    <p class="text-sm font-medium text-grayin-400">Descricao</p>
                     @if ($product->description)
-                        <p class="text-base text-gray-300">{{ $product->description }}</p>
+                        <p class="text-base text-grayin-300">{{ $product->description }}</p>
                     @else
-                        <p class="text-base text-gray-400 italic">Sem descricao</p>
+                        <p class="text-base text-grayin-400 italic">Sem descricao</p>
                     @endif
                 </div>
 
                 <div class="space-y-1">
-                    <p class="text-sm font-medium text-gray-400">Criado em</p>
-                    <p class="text-base text-gray-300">{{ $product->created_at->format('d/m/Y H:i') }}</p>
+                    <p class="text-sm font-medium text-grayin-400">Criado em</p>
+                    <p class="text-base text-grayin-300">{{ $product->created_at->format('d/m/Y H:i') }}</p>
                 </div>
             </div>
         </x-card>

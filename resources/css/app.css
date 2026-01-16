@@ -17,12 +17,12 @@
     --color-blue-base: #5165e1;
     --color-blue-light: #8996eb;
 
-    --color-gray-100: #151619;
-    --color-gray-200: #1e2024;
-    --color-gray-300: #535964;
-    --color-gray-400: #858b99;
-    --color-gray-500: #e3e5e8;
-    --color-gray-600: #f9fafa;
+    --color-grayin-100: #151619;
+    --color-grayin-200: #1e2024;
+    --color-grayin-300: #535964;
+    --color-grayin-400: #858b99;
+    --color-grayin-500: #e3e5e8;
+    --color-grayin-600: #f9fafa;
 
     --color-feedback-danger: #d03e3e;
     --color-feedback-open: #cc3d6a;

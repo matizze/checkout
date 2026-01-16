@@ -13,25 +13,21 @@
             </header>
 
             <nav class="flex flex-1 px-4 py-5 flex-col space-y-1 w-full">
-                {{-- <x-nav-item tag="a" icon="server" class="justify-start gap-3 p-3" route="instances.index">
-                    Instâncias
-                </x-nav-item> --}}
-
                 <x-nav-item tag="a" icon="package" class="justify-start gap-3 p-3" route="products.index">
                     Produtos
                 </x-nav-item>
 
-                {{-- <x-nav-item tag="a" icon="megaphone" class="justify-start gap-3 p-3" route="campaigns.index">
-                    Campanhas
-                </x-nav-item> --}}
+                <x-nav-item tag="a" icon="shopping-cart" class="justify-start gap-3 p-3" route="orders.index">
+                    Pedidos
+                </x-nav-item>
             </nav>
 
-            <footer class="px-4 py-5 w-full space-y-4 border-t border-gray-200">
+            <footer class="px-4 py-5 w-full space-y-4 border-t border-grayin-200">
                 <x-user-menu class=""/>
             </footer>
         </aside>
 
-        <main {{ $attributes->class(["overflow-y-auto bg-white text-gray-100 rounded-tl-2xl px-12 py-13 min-h-0"]) }}>
+        <main {{ $attributes->class(["overflow-y-auto bg-white text-grayin-100 rounded-tl-2xl px-12 py-13 min-h-0"]) }}>
             {{ $slot }}
         </main>
     </div>

@@ -4,7 +4,7 @@
         <div class="space-y-6 w-full">
             <div>
                 <h2 class="text-xl font-bold text-blue-dark">Informações do perfil</h2>
-                <p class="text-sm text-gray-300 mt-1">Atualize seu nome e endereço de e-mail</p>
+                <p class="text-sm text-grayin-300 mt-1">Atualize seu nome e endereço de e-mail</p>
             </div>
 
             <form method="POST" action="{{ route('settings.profile.update') }}" class="space-y-4 w-full">
@@ -39,12 +39,12 @@
         <div class="space-y-4 w-full">
             <div>
                 <h2 class="text-xl font-bold text-feedback-danger">Deletar conta</h2>
-                <p class="text-sm text-gray-300 mt-1">Delete sua conta e todos os seus recursos</p>
+                <p class="text-sm text-grayin-300 mt-1">Delete sua conta e todos os seus recursos</p>
             </div>
 
             <div class="bg-feedback-danger/10 border border-feedback-danger/30 rounded p-4">
                 <p class="text-sm font-semibold text-feedback-danger mb-1">Aviso</p>
-                <p class="text-sm text-gray-300">Prossiga com cuidado, esta ação não pode ser desfeita.</p>
+                <p class="text-sm text-grayin-300">Prossiga com cuidado, esta ação não pode ser desfeita.</p>
             </div>
 
             <x-modal title="Confirmar exclusão de conta" size="max-w-lg">
@@ -60,10 +60,10 @@
                         @method('DELETE')
 
                         <div class="space-y-2">
-                            <h3 class="text-lg font-semibold text-gray-100">
+                            <h3 class="text-lg font-semibold text-grayin-100">
                                 Tem certeza que deseja deletar sua conta?
                             </h3>
-                            <p class="text-sm text-gray-300">
+                            <p class="text-sm text-grayin-300">
                                 Uma vez que sua conta for deletada, todos os seus recursos e dados também serão permanentemente deletados.
                                 Por favor, digite sua senha para confirmar que deseja deletar permanentemente sua conta.
                             </p>

@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        <main class="h-screen bg-gray-100">
+        <main class="h-screen bg-grayin-100">
             {{ $slot }}
         </main>
     </body>

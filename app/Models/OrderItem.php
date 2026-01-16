@@ -5,28 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Payment extends Model
+class OrderItem extends Model
 {
     protected $fillable = [
         'order_id',
-        'asaas_id',
-        'billing_type',
-        'amount',
-        'status',
-        'due_date',
-        'pix_payload',
-        'pix_qrcode_base64',
-        'paid_at',
+        'product_id',
+        'quantity',
+        'unit_price',
+        'subtotal',
     ];
 
     protected $casts = [
-        'amount' => 'decimal:2',
-        'due_date' => 'date',
-        'paid_at' => 'datetime',
+        'unit_price' => 'decimal:2',
+        'subtotal' => 'decimal:2',
     ];
 
     public function order(): BelongsTo
     {
         return $this->belongsTo(Order::class);
+    }
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class);
     }
 }
