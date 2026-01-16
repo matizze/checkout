@@ -1,0 +1,319 @@
+services:
+  app:
+    image: ghcr.io/matizze/gmdisparos:development
+    pull_policy: always
+    environment:
+      CONTAINER_MODE: app
+      APP_NAME: ${APP_NAME}
+      APP_ENV: ${APP_ENV}
+      APP_KEY: ${APP_KEY}
+      APP_DEBUG: ${APP_DEBUG}
+      APP_URL: ${APP_URL}
+
+      ASSET_URL: ${APP_URL}
+
+      APP_ADMIN_NAME: ${APP_ADMIN_NAME}
+      APP_ADMIN_EMAIL: ${APP_ADMIN_EMAIL}
+      APP_ADMIN_PASSWORD: ${APP_ADMIN_PASSWORD}
+
+      APP_LOCALE: ${APP_LOCALE}
+      APP_FALLBACK_LOCALE: ${APP_FALLBACK_LOCALE}
+      APP_FAKER_LOCALE: ${APP_FAKER_LOCALE}
+
+      APP_MAINTENANCE_DRIVER: ${APP_MAINTENANCE_DRIVER}
+
+      PHP_CLI_SERVER_WORKERS: ${PHP_CLI_SERVER_WORKERS}
+      BCRYPT_ROUNDS: ${BCRYPT_ROUNDS}
+
+      LOG_CHANNEL: ${LOG_CHANNEL}
+      LOG_STACK: ${LOG_STACK}
+      LOG_DEPRECATIONS_CHANNEL: ${LOG_DEPRECATIONS_CHANNEL}
+      LOG_LEVEL: ${LOG_LEVEL}
+
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE_APP: ${DB_DATABASE_APP}
+      DB_DATABASE_WUZAPI: ${DB_DATABASE_WUZAPI}
+
+      SESSION_DRIVER: ${SESSION_DRIVER}
+      SESSION_LIFETIME: ${SESSION_LIFETIME}
+      SESSION_ENCRYPT: ${SESSION_ENCRYPT}
+      SESSION_PATH: ${SESSION_PATH}
+      SESSION_DOMAIN: ${SESSION_DOMAIN}
+
+      BROADCAST_CONNECTION: ${BROADCAST_CONNECTION}
+      FILESYSTEM_DISK: ${FILESYSTEM_DISK}
+      QUEUE_CONNECTION: ${QUEUE_CONNECTION}
+
+      CACHE_STORE: ${CACHE_STORE}
+
+      MEMCACHED_HOST: ${MEMCACHED_HOST}
+
+      REDIS_CLIENT: ${REDIS_CLIENT}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+
+      MAIL_MAILER: ${MAIL_MAILER}
+      MAIL_SCHEME: ${MAIL_SCHEME}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
+
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      AWS_BUCKET: ${AWS_BUCKET}
+      AWS_ENDPOINT: ${AWS_ENDPOINT}
+      AWS_USE_PATH_STYLE_ENDPOINT: ${AWS_USE_PATH_STYLE_ENDPOINT}
+
+      VITE_APP_NAME: ${VITE_APP_NAME}
+      OCTANE_SERVER: ${OCTANE_SERVER}
+      OCTANE_HTTPS: ${OCTANE_HTTPS}
+
+      RUN_MIGRATIONS: ${RUN_MIGRATIONS:-false}
+      RUN_SEEDERS: ${RUN_SEEDERS:-false}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - curl -f http://localhost:8000/up || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
+
+  worker:
+    image: ghcr.io/matizze/gmdisparos:development
+    pull_policy: always
+    environment:
+      CONTAINER_MODE: worker
+      APP_NAME: ${APP_NAME}
+      APP_ENV: ${APP_ENV}
+      APP_KEY: ${APP_KEY}
+      APP_DEBUG: ${APP_DEBUG}
+      APP_URL: ${APP_URL}
+
+      LOG_CHANNEL: ${LOG_CHANNEL}
+      LOG_STACK: ${LOG_STACK}
+      LOG_LEVEL: ${LOG_LEVEL}
+
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+      DB_DATABASE_APP: ${DB_DATABASE_APP}
+      DB_DATABASE_WUZAPI: ${DB_DATABASE_WUZAPI}
+
+      WUZAPI_BASE_URL: ${WUZAPI_BASE_URL}
+      WUZAPI_ADMIN_TOKEN: ${WUZAPI_ADMIN_TOKEN}
+
+      QUEUE_CONNECTION: ${QUEUE_CONNECTION}
+
+      CACHE_STORE: ${CACHE_STORE}
+
+      REDIS_CLIENT: ${REDIS_CLIENT}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+
+      MAIL_MAILER: ${MAIL_MAILER}
+      MAIL_SCHEME: ${MAIL_SCHEME}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
+
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      AWS_BUCKET: ${AWS_BUCKET}
+      AWS_ENDPOINT: ${AWS_ENDPOINT}
+      AWS_USE_PATH_STYLE_ENDPOINT: ${AWS_USE_PATH_STYLE_ENDPOINT}
+
+      FILESYSTEM_DISK: ${FILESYSTEM_DISK}
+    depends_on:
+      app:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    restart: unless-stopped
+
+  scheduler:
+    image: ghcr.io/matizze/gmdisparos:development
+    pull_policy: always
+    environment:
+      CONTAINER_MODE: scheduler
+      APP_NAME: ${APP_NAME}
+      APP_ENV: ${APP_ENV}
+      APP_KEY: ${APP_KEY}
+      APP_DEBUG: ${APP_DEBUG}
+      APP_URL: ${APP_URL}
+
+      LOG_CHANNEL: ${LOG_CHANNEL}
+      LOG_STACK: ${LOG_STACK}
+      LOG_LEVEL: ${LOG_LEVEL}
+
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE_APP: ${DB_DATABASE_APP}
+      DB_DATABASE_WUZAPI: ${DB_DATABASE_WUZAPI}
+
+      QUEUE_CONNECTION: ${QUEUE_CONNECTION}
+
+      CACHE_STORE: ${CACHE_STORE}
+
+      REDIS_CLIENT: ${REDIS_CLIENT}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_PORT: ${REDIS_PORT}
+
+      MAIL_MAILER: ${MAIL_MAILER}
+      MAIL_SCHEME: ${MAIL_SCHEME}
+      MAIL_HOST: ${MAIL_HOST}
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM_ADDRESS: ${MAIL_FROM_ADDRESS}
+      MAIL_FROM_NAME: ${MAIL_FROM_NAME}
+
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      AWS_BUCKET: ${AWS_BUCKET}
+      AWS_ENDPOINT: ${AWS_ENDPOINT}
+      AWS_USE_PATH_STYLE_ENDPOINT: ${AWS_USE_PATH_STYLE_ENDPOINT}
+
+      FILESYSTEM_DISK: ${FILESYSTEM_DISK}
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: ${DB_DATABASE_APP}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgsql_data:/var/lib/postgresql/data
+      - ./docker/pgsql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE_APP} || exit 1
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+    restart: unless-stopped
+
+  dbms:
+    image: adminer:latest
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  wuzapi:
+    image: asternic/wuzapi:latest
+    environment:
+      WEBHOOK_FORMAT: json
+      SESSION_DEVICE_NAME: GM Disparos
+      WUZAPI_GLOBAL_ENCRYPTION_KEY: ${WUZAPI_GLOBAL_ENCRYPTION_KEY}
+      WUZAPI_GLOBAL_HMAC_KEY: ${WUZAPI_GLOBAL_HMAC_KEY}
+      WUZAPI_PORT: ${WUZAPI_PORT:-80}
+
+      DB_PROVIDER: postgres
+      DB_HOST: ${DB_HOST}
+      DB_USER: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_DATABASE_WUZAPI}
+
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+
+      API_SECRET: ${WUZAPI_ADMIN_TOKEN}
+      WUZAPI_ADMIN_TOKEN: ${WUZAPI_ADMIN_TOKEN}
+
+      TZ: America/Sao_Paulo
+      MAX_CONCURRENT_SESSIONS: 50
+    volumes:
+      - sessions:/app/sessions
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY}
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  minio-init:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set minio http://minio:9000 ${AWS_ACCESS_KEY_ID} ${AWS_SECRET_ACCESS_KEY};
+      mc mb --ignore-existing minio/${AWS_BUCKET};
+      exit 0;
+      "
+    restart: "no"
+
+volumes:
+  redis_data:
+  pgsql_data:
+  sessions:
+  minio_data:
