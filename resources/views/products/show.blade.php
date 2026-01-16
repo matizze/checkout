@@ -62,29 +62,31 @@
             @endif
         </x-card>
 
-        <x-card class="md:col-span-2 space-y-4">
-            <div>
-                <p class="text-xs text-gray-400">Nome</p>
-                <p class="text-lg font-semibold text-gray-100">{{ $product->name }}</p>
-            </div>
+        <x-card class="md:col-span-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-400">Nome</p>
+                    <p class="text-lg font-semibold text-gray-200">{{ $product->name }}</p>
+                </div>
 
-            <div>
-                <p class="text-xs text-gray-400">Preco</p>
-                <p class="text-2xl font-bold text-blue-base">R$ {{ number_format($product->price, 2, ',', '.') }}</p>
-            </div>
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-400">Preco</p>
+                    <p class="text-2xl font-bold text-blue-base">R$ {{ number_format($product->price, 2, ',', '.') }}</p>
+                </div>
 
-            <div>
-                <p class="text-xs text-gray-400">Descricao</p>
-                @if ($product->description)
-                    <p class="text-sm text-gray-200">{{ $product->description }}</p>
-                @else
-                    <p class="text-sm text-gray-400">Sem descricao</p>
-                @endif
-            </div>
+                <div class="space-y-1 sm:col-span-2">
+                    <p class="text-sm font-medium text-gray-400">Descricao</p>
+                    @if ($product->description)
+                        <p class="text-base text-gray-300">{{ $product->description }}</p>
+                    @else
+                        <p class="text-base text-gray-400 italic">Sem descricao</p>
+                    @endif
+                </div>
 
-            <div>
-                <p class="text-xs text-gray-400">Criado em</p>
-                <p class="text-sm text-gray-200">{{ $product->created_at->format('d/m/Y H:i') }}</p>
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-gray-400">Criado em</p>
+                    <p class="text-base text-gray-300">{{ $product->created_at->format('d/m/Y H:i') }}</p>
+                </div>
             </div>
         </x-card>
     </div>
