@@ -1,8 +1,7 @@
-<x-layout.dashboard class="space-y-6 px-40!" title="Novo Pedido">
-    {{-- Header --}}
+<x-layout.dashboard class="space-y-6 px-40!" title="Novo Produto">
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="text-2xl font-bold text-blue-dark">
-            Novo Pedido
+            Novo Produto
         </h1>
 
         <x-button tag="a" variant="ghost" href="{{ route('products.index') }}" class="px-4">
@@ -17,11 +16,12 @@
     @endif
 
     <x-card class="w-full">
-        <form action="{{ route('products.store') }}" method="POST" class="space-y-6 w-full">
+        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6 w-full">
             @csrf
+
             <div class="space-y-2">
                 <label for="name" class="text-sm font-semibold text-gray-300">
-                    Nome da lista
+                    Nome do produto
                 </label>
 
                 <input
@@ -29,15 +29,13 @@
                     id="name"
                     name="name"
                     value="{{ old('name') }}"
-                    placeholder="Ex.: Leads Novembro"
+                    placeholder="Ex.: Camiseta Preta"
                     class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
-                    aria-invalid="@error('name') true @else false @enderror"
-                    aria-describedby="@error('name') name_error @enderror"
                     required
                 >
 
                 @error('name')
-                    <p id="name_error" class="text-sm font-semibold text-feedback-danger">
+                    <p class="text-sm font-semibold text-feedback-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -45,21 +43,63 @@
 
             <div class="space-y-2">
                 <label for="description" class="text-sm font-semibold text-gray-300">
-                    Descrição (opcional)
+                    Descricao (opcional)
                 </label>
 
                 <textarea
                     id="description"
                     name="description"
                     rows="4"
-                    placeholder="Ex.: Leads captados via campanha X"
-                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-none"
-                    aria-invalid="@error('description') true @else false @enderror"
-                    aria-describedby="@error('description') desc_error @enderror"
+                    placeholder="Ex.: Camiseta 100% algodao"
+                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
                 >{{ old('description') }}</textarea>
 
                 @error('description')
-                    <p id="desc_error" class="text-sm font-semibold text-feedback-danger">
+                    <p class="text-sm font-semibold text-feedback-danger">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
+            <div class="space-y-2">
+                <label for="price" class="text-sm font-semibold text-gray-300">
+                    Preco
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    value="{{ old('price') }}"
+                    placeholder="0,00"
+                    step="0.01"
+                    min="0"
+                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
+                    required
+                >
+
+                @error('price')
+                    <p class="text-sm font-semibold text-feedback-danger">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
+            <div class="space-y-2">
+                <label for="image" class="text-sm font-semibold text-gray-300">
+                    Imagem (opcional)
+                </label>
+
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/*"
+                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-gray-500 file:text-gray-200 hover:file:bg-gray-400"
+                >
+
+                @error('image')
+                    <p class="text-sm font-semibold text-feedback-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -72,7 +112,7 @@
 
                 <x-button type="submit" class="px-4">
                     <x-lucide-plus class="size-4" />
-                    Criar lista
+                    Criar produto
                 </x-button>
             </div>
         </form>

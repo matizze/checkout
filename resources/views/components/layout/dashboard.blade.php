@@ -13,24 +13,20 @@
             </header>
 
             <nav class="flex flex-1 px-4 py-5 flex-col space-y-1 w-full">
-                <!--<x-nav-item tag="a" icon="server" class="justify-start gap-3 p-3" route="instances.index">
+                {{-- <x-nav-item tag="a" icon="server" class="justify-start gap-3 p-3" route="instances.index">
                     Instâncias
-                </x-nav-item>-->
+                </x-nav-item> --}}
 
-                <x-nav-item tag="a" icon="list" class="justify-start gap-3 p-3" route="products.index">
-                    Listas de Pedidos
+                <x-nav-item tag="a" icon="package" class="justify-start gap-3 p-3" route="products.index">
+                    Produtos
                 </x-nav-item>
 
-                <!--<x-nav-item tag="a" icon="megaphone" class="justify-start gap-3 p-3" route="campaigns.index">
+                {{-- <x-nav-item tag="a" icon="megaphone" class="justify-start gap-3 p-3" route="campaigns.index">
                     Campanhas
-                </x-nav-item>-->
+                </x-nav-item> --}}
             </nav>
 
             <footer class="px-4 py-5 w-full space-y-4 border-t border-gray-200">
-                <x-client-selector
-                    :clients="auth()->user()->clients"
-                    :selected="session('client_id')"
-                />
                 <x-user-menu class=""/>
             </footer>
         </aside>

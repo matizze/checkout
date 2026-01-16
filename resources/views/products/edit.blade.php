@@ -1,23 +1,22 @@
-<x-layout.dashboard class="space-y-6" title="Editar Pedido: {{ $collection->name }}">
-    {{-- Header --}}
+<x-layout.dashboard class="space-y-6 px-40!" title="Editar Produto: {{ $product->name }}">
     <div class="flex flex-wrap items-center justify-between gap-3">
         <h1 class="text-2xl font-bold text-blue-dark">
-            Editar Pedido
+            Editar Produto
         </h1>
 
         <div class="flex flex-wrap items-center gap-3">
-            <x-button tag="a" variant="ghost" href="{{ route('products.show', $collection) }}" class="px-4">
+            <x-button tag="a" variant="ghost" href="{{ route('products.show', $product) }}" class="px-4">
                 Cancelar
             </x-button>
 
             <div x-data="{
                 confirmDelete() {
-                    return confirm('Tem certeza que deseja excluir esta lista? Essa ação não pode ser desfeita.');
+                    return confirm('Tem certeza que deseja excluir este produto? Essa acao nao pode ser desfeita.');
                 }
             }">
                 <form
                     method="POST"
-                    :action="`{{ route('products.destroy', $collection) }}`"
+                    action="{{ route('products.destroy', $product) }}"
                     @submit="if (!confirmDelete()) $event.preventDefault()"
                     class="inline"
                 >
@@ -40,43 +39,27 @@
     @endif
 
     <x-card class="w-full">
-        <form action="{{ route('products.update', $collection) }}" method="POST" class="space-y-6 w-full">
+        <form action="{{ route('products.update', $product) }}" method="POST" enctype="multipart/form-data" class="space-y-6 w-full">
             @csrf
             @method('PUT')
 
             <div class="space-y-2">
-                <label class="text-sm font-semibold text-gray-300">
-                    Cliente
-                </label>
-
-                <div class="w-full rounded-md bg-gray-500 border border-gray-500 px-4 py-3 text-gray-200">
-                    {{ $collection->client?->name ?? '—' }}
-                </div>
-
-                <p class="text-xs text-gray-400">
-                    O cliente não pode ser alterado após a criação da lista.
-                </p>
-            </div>
-
-            <div class="space-y-2">
                 <label for="name" class="text-sm font-semibold text-gray-300">
-                    Nome da lista
+                    Nome do produto
                 </label>
 
                 <input
                     type="text"
                     id="name"
                     name="name"
-                    value="{{ old('name', $collection->name) }}"
-                    placeholder="Ex.: Leads Novembro"
+                    value="{{ old('name', $product->name) }}"
+                    placeholder="Ex.: Camiseta Preta"
                     class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
-                    aria-invalid="@error('name') true @else false @enderror"
-                    aria-describedby="@error('name') name_error @enderror"
                     required
                 >
 
                 @error('name')
-                    <p id="name_error" class="text-sm font-semibold text-feedback-danger">
+                    <p class="text-sm font-semibold text-feedback-danger">
                         {{ $message }}
                     </p>
                 @enderror
@@ -84,28 +67,77 @@
 
             <div class="space-y-2">
                 <label for="description" class="text-sm font-semibold text-gray-300">
-                    Descrição (opcional)
+                    Descricao (opcional)
                 </label>
 
                 <textarea
                     id="description"
                     name="description"
                     rows="4"
-                    placeholder="Ex.: Leads captados via campanha X"
+                    placeholder="Ex.: Camiseta 100% algodao"
                     class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
-                    aria-invalid="@error('description') true @else false @enderror"
-                    aria-describedby="@error('description') description_error @enderror"
-                >{{ old('description', $collection->description) }}</textarea>
+                >{{ old('description', $product->description) }}</textarea>
 
                 @error('description')
-                    <p id="description_error" class="text-sm font-semibold text-feedback-danger">
+                    <p class="text-sm font-semibold text-feedback-danger">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
+            <div class="space-y-2">
+                <label for="price" class="text-sm font-semibold text-gray-300">
+                    Preco
+                </label>
+
+                <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    value="{{ old('price', $product->price) }}"
+                    placeholder="0,00"
+                    step="0.01"
+                    min="0"
+                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 placeholder:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
+                    required
+                >
+
+                @error('price')
+                    <p class="text-sm font-semibold text-feedback-danger">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
+            <div class="space-y-2">
+                <label for="image" class="text-sm font-semibold text-gray-300">
+                    Imagem (opcional)
+                </label>
+
+                @if ($product->image)
+                    <div class="mb-2">
+                        <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="size-24 object-cover rounded">
+                        <p class="text-xs text-gray-400 mt-1">Imagem atual</p>
+                    </div>
+                @endif
+
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    accept="image/*"
+                    class="w-full rounded-md bg-white border border-gray-500 px-4 py-3 text-gray-100 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-gray-500 file:text-gray-200 hover:file:bg-gray-400"
+                >
+
+                @error('image')
+                    <p class="text-sm font-semibold text-feedback-danger">
                         {{ $message }}
                     </p>
                 @enderror
             </div>
 
             <div class="flex flex-wrap items-center justify-end gap-3 pt-2">
-                <x-button tag="a" variant="ghost" href="{{ route('products.show', $collection) }}" class="px-4">
+                <x-button tag="a" variant="ghost" href="{{ route('products.show', $product) }}" class="px-4">
                     Voltar
                 </x-button>
 
