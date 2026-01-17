@@ -86,21 +86,11 @@
             </div>
 
             <div class="space-y-2" x-data="{
-                priceInCents: {{ old('price', $product->getRawOriginal('price') ?? 0) }},
-                get price() {
-                    const formatted = (this.priceInCents / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    return formatted;
-                },
-                set price(value) {
-                    if (!value || value === '0,00' || value === '') {
-                        this.priceInCents = 0;
-                    } else {
-                        const cleaned = value.replace(/\./g, '').replace(',', '.');
-                        this.priceInCents = Math.round(parseFloat(cleaned) * 100) || 0;
-                    }
-                },
-                getPriceInCents() {
-                    return this.priceInCents;
+                displayPrice: '{{ old('price', number_format(($product->getRawOriginal('price') ?? 0) / 100, 2, ',', '.')) }}',
+                toCents(value) {
+                    if (!value || value === '0,00' || value === '') return 0;
+                    const cleaned = value.replace(/\./g, '').replace(',', '.');
+                    return Math.round(parseFloat(cleaned) * 100) || 0;
                 }
             }">
                 <label for="price" class="text-sm font-semibold text-grayin-300">
@@ -112,14 +102,14 @@
                     <input
                         type="text"
                         id="price"
-                        x-model="price"
+                        x-model="displayPrice"
                         x-mask:dynamic="$money($input, ',', '.')"
                         placeholder="0,00"
                         class="w-full rounded-md bg-white border border-grayin-500 pl-10 pr-4 py-3 text-grayin-100 placeholder:text-grayin-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
                         required
                     >
                 </div>
-                <input type="hidden" name="price" :value="getPriceInCents()">
+                <input type="hidden" name="price" :value="toCents(displayPrice)">
 
                 @error('price')
                     <p class="text-sm font-semibold text-feedback-danger">
