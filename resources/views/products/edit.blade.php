@@ -109,15 +109,18 @@
                     Preço
                 </label>
 
-                <input
-                    type="text"
-                    id="price"
-                    x-model="price"
-                    x-on:input="price = formatPrice($event.target.value)"
-                    placeholder="0,00"
-                    class="w-full rounded-md bg-white border border-grayin-500 px-4 py-3 text-grayin-100 placeholder:text-grayin-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
-                    required
-                >
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-grayin-300 font-semibold">R$</span>
+                    <input
+                        type="text"
+                        id="price"
+                        x-model="price"
+                        x-on:input="price = formatPrice($event.target.value)"
+                        placeholder="0,00"
+                        class="w-full rounded-md bg-white border border-grayin-500 pl-10 pr-4 py-3 text-grayin-100 placeholder:text-grayin-300 focus:outline-none focus:ring-2 focus:ring-blue-base"
+                        required
+                    >
+                </div>
                 <input type="hidden" name="price" :value="unformatPrice(price)">
 
                 @error('price')

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -38,7 +39,8 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            $disk = config('filesystems.default');
+            $validated['image'] = $request->file('image')->store('products', $disk);
         }
 
         Product::create($validated);
@@ -77,7 +79,14 @@ class ProductController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('products', 'public');
+            // Remove imagem antiga se existir
+            if ($product->image) {
+                $disk = config('filesystems.default');
+                Storage::disk($disk)->delete($product->image);
+            }
+
+            $disk = config('filesystems.default');
+            $validated['image'] = $request->file('image')->store('products', $disk);
         }
 
         $product->update($validated);
@@ -92,6 +101,12 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        // Remove imagem se existir
+        if ($product->image) {
+            $disk = config('filesystems.default');
+            Storage::disk($disk)->delete($product->image);
+        }
+
         $product->delete();
 
         return redirect()
