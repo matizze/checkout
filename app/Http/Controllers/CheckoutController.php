@@ -119,15 +119,29 @@ class CheckoutController extends Controller
         // Criar cobranca PIX no Asaas
         $dueDate = now()->addDays(1)->format('Y-m-d');
 
-        $asaasPayment = $asaas->createPixPayment(
-            $asaasCustomer['id'],
-            (float) $product->price,
-            $dueDate,
-            "Pedido #{$order->id} - {$product->name}"
-        );
+        try {
+            $asaasPayment = $asaas->createPixPayment(
+                $asaasCustomer['id'],
+                (float) $product->price,
+                $dueDate,
+                "Pedido #{$order->id} - {$product->name}"
+            );
 
-        // Obter QR Code PIX
-        $pixQrCode = $asaas->getPixQrCode($asaasPayment['id']);
+            // Obter QR Code PIX
+            $pixQrCode = $asaas->getPixQrCode($asaasPayment['id']);
+        } catch (\Illuminate\Http\Client\RequestException $e) {
+            \Log::error('Asaas API Error:', [
+                'error' => $e->getMessage(),
+                'response' => $e->response->json(),
+                'order_id' => $order->id,
+                'customer_id' => $asaasCustomer['id'] ?? 'N/A',
+                'amount' => $product->price,
+            ]);
+            
+            return back()
+                ->with('error', 'Erro ao processar pagamento. Tente novamente.')
+                ->withInput();
+        }
 
         // Criar pagamento no banco local
         $payment = Payment::create([

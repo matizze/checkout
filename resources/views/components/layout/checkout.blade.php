@@ -6,12 +6,6 @@
 <x-layout.app :title="$title">
     <div class="min-h-screen bg-surface py-8 px-4 dark:bg-surface-dark">
         <div class="max-w-4xl mx-auto">
-            {{-- Header --}}
-            <header class="text-center mb-8">
-                <h1 class="text-2xl font-bold text-on-surface dark:text-on-surface-dark">{{ config('app.name') }}</h1>
-                <p class="text-on-surface-muted text-sm mt-1 dark:text-on-surface-dark-muted">Checkout Seguro</p>
-            </header>
-
             {{-- Progress Steps (Penguin UI) --}}
             <ol class="flex w-full items-center justify-center gap-2 mb-8" aria-label="checkout progress">
                 {{-- Step 1 --}}

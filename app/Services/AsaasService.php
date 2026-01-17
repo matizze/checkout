@@ -48,10 +48,17 @@ class AsaasService
      */
     public function createPayment(array $data): array
     {
-        return Http::asaas()
+        // Log para debug
+        \Log::info('Asaas API - Creating payment with data:', $data);
+        
+        $response = Http::asaas()
             ->post('/payments', $data)
             ->throw()
             ->json();
+            
+        \Log::info('Asaas API - Payment created:', $response);
+        
+        return $response;
     }
 
     /**
@@ -92,15 +99,25 @@ class AsaasService
         string $dueDate,
         ?string $description = null
     ): array {
+        // Validação dos dados antes de enviar para API
+        if (empty($customerId)) {
+            throw new \InvalidArgumentException('Customer ID is required');
+        }
+        
+        if ($value <= 0) {
+            throw new \InvalidArgumentException('Value must be greater than 0');
+        }
+        
         $data = [
             'customer' => $customerId,
             'billingType' => 'PIX',
-            'value' => $value,
+            'value' => round($value, 2), // Garante 2 casas decimais
             'dueDate' => $dueDate,
+            'daysAfterDueDate' => 1, // Campo obrigatório pela API
         ];
 
         if ($description) {
-            $data['description'] = $description;
+            $data['description'] = substr($description, 0, 255); // Limita tamanho
         }
 
         return $this->createPayment($data);
