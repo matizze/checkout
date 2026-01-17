@@ -13,6 +13,20 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
+            <button
+                x-data="{ 
+                    checkoutUrl: '{{ route('checkout.start', $product) }}',
+                    copied: false
+                }"
+                @click="$clipboard(checkoutUrl); copied = true; setTimeout(() => copied = false, 2000)"
+                class="flex items-center justify-center cursor-pointer size-9 bg-grayin-500 rounded"
+                :class="{ 'bg-green-500': copied }"
+                :title="copied ? 'Copiado!' : 'Copiar link checkout'"
+            >
+                <x-lucide-check class="size-4" x-show="copied" />
+                <x-lucide-link class="size-4" x-show="!copied" />
+            </button>
+
             <a
                 href="{{ route('products.edit', $product) }}"
                 class="flex items-center justify-center cursor-pointer size-9 bg-grayin-500 rounded"
@@ -70,22 +84,29 @@
                 </div>
 
                 <div class="space-y-1">
-                    <p class="text-sm font-medium text-grayin-400">Preco</p>
+                    <p class="text-sm font-medium text-grayin-400">Preço</p>
                     <p class="text-2xl font-bold text-blue-base">R$ {{ number_format($product->price, 2, ',', '.') }}</p>
                 </div>
 
                 <div class="space-y-1 sm:col-span-2">
-                    <p class="text-sm font-medium text-grayin-400">Descricao</p>
+                    <p class="text-sm font-medium text-grayin-400">Descrição</p>
                     @if ($product->description)
                         <p class="text-base text-grayin-300">{{ $product->description }}</p>
                     @else
-                        <p class="text-base text-grayin-400 italic">Sem descricao</p>
+                        <p class="text-base text-grayin-400 italic">Sem descrição</p>
                     @endif
                 </div>
 
                 <div class="space-y-1">
                     <p class="text-sm font-medium text-grayin-400">Criado em</p>
                     <p class="text-base text-grayin-300">{{ $product->created_at->format('d/m/Y H:i') }}</p>
+                </div>
+
+                <div class="space-y-1">
+                    <p class="text-sm font-medium text-grayin-400">Link checkout</p>
+                    <div class="flex items-center gap-2">
+                        <code class="text-xs bg-grayin-600 px-2 py-1 rounded text-grayin-300 truncate">{{ route('checkout.start', $product) }}</code>
+                    </div>
                 </div>
             </div>
         </x-card>

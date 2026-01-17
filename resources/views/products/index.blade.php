@@ -23,7 +23,7 @@
                     <th class="px-4 py-4 text-start text-sm text-grayin-400">Imagem</th>
                     <th class="px-4 py-4 text-start text-sm text-grayin-400">Nome</th>
                     <th class="px-4 py-4 text-start text-sm text-grayin-400">Descricao</th>
-                    <th class="px-4 py-4 text-start text-sm text-grayin-400">Preco</th>
+                    <th class="px-4 py-4 text-start text-sm text-grayin-400">Preço</th>
                     <th class="px-4 py-4 w-10"></th>
                 </tr>
             </thead>
@@ -64,6 +64,20 @@
                         </td>
 
                         <td class="flex gap-2 px-4 py-4">
+                            <button
+                                x-data="{ 
+                                    checkoutUrl: '{{ route('checkout.start', $product) }}',
+                                    copied: false
+                                }"
+                                @click="$clipboard(checkoutUrl); copied = true; setTimeout(() => copied = false, 2000)"
+                                class="flex items-center justify-center cursor-pointer size-7 bg-grayin-500 rounded"
+                                :class="{ 'bg-green-500': copied }"
+                                :title="copied ? 'Copiado!' : 'Copiar link checkout'"
+                            >
+                                <x-lucide-check class="size-3" x-show="copied" />
+                                <x-lucide-link class="size-3" x-show="!copied" />
+                            </button>
+
                             <a
                                 href="{{ route('products.show', $product) }}"
                                 class="flex items-center justify-center cursor-pointer size-7 bg-grayin-500 rounded"
