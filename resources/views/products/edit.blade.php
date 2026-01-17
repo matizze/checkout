@@ -88,9 +88,7 @@
             <div class="space-y-2" x-data="{
                 displayPrice: '{{ old('price', number_format(($product->getRawOriginal('price') ?? 0) / 100, 2, ',', '.')) }}',
                 toCents(value) {
-                    if (!value || value === '0,00' || value === '') return 0;
-                    const cleaned = value.replace(/\./g, '').replace(',', '.');
-                    return Math.round(parseFloat(cleaned) * 100) || 0;
+                    return value.replace(/\./g, '').replace(',', '');
                 }
             }">
                 <label for="price" class="text-sm font-semibold text-grayin-300">

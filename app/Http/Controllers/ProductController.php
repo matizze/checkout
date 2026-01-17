@@ -36,10 +36,8 @@ class ProductController extends Controller
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
             'attachment' => ['nullable', 'file', 'max:10240'],
-            'price' => ['required', 'integer', 'min:1'],
+            'price' => ['required', 'string', 'regex:/^\d+$/'],
         ]);
-
-        // Preço já vem em centavos do JavaScript
 
         $disk = config('filesystems.default');
 
@@ -84,10 +82,8 @@ class ProductController extends Controller
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
             'attachment' => ['nullable', 'file', 'max:10240'],
-            'price' => ['required', 'integer', 'min:1'],
+            'price' => ['required', 'string', 'regex:/^\d+$/'],
         ]);
-
-        // Preço já vem em centavos do JavaScript
 
         $disk = config('filesystems.default');
 
