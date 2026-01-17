@@ -4,7 +4,7 @@
         <div class="flex flex-col overflow-hidden rounded-radius border border-outline bg-surface-alt text-on-surface dark:border-outline-dark dark:bg-surface-dark-alt dark:text-on-surface-dark">
             @if ($product->image)
                 <img
-                    src="{{ Storage::url($product->image) }}"
+                    src="{{ $product->image_url }}"
                     alt="{{ $product->name }}"
                     class="w-full h-48 object-cover"
                 >

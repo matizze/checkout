@@ -118,7 +118,7 @@
 
                 @if ($product->image)
                     <img
-                        src="{{ Storage::url($product->image) }}"
+                        src="{{ $product->image_url }}"
                         alt="{{ $product->name }}"
                         class="w-full h-32 object-cover rounded-radius mb-4"
                     >

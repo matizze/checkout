@@ -54,7 +54,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <x-card class="md:col-span-1">
             @if ($product->image)
-                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="w-full h-64 object-cover rounded-lg">
+                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="w-full h-64 object-cover rounded-lg">
             @else
                 <div class="w-full h-64 bg-grayin-500 rounded-lg flex items-center justify-center">
                     <x-lucide-image class="size-16 text-grayin-400" />

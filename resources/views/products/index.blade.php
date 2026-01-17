@@ -33,7 +33,7 @@
                     <tr class="border-t border-dotted border-grayin-500">
                         <td class="px-4 py-4">
                             @if ($product->image)
-                                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="size-12 object-cover rounded">
+                                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="size-12 object-cover rounded">
                             @else
                                 <div class="size-12 bg-grayin-500 rounded flex items-center justify-center">
                                     <x-lucide-image class="size-5 text-grayin-400" />
