@@ -249,7 +249,7 @@
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Total</span>
-                            <span class="detail-value total">R$ {{ number_format($mail->order->total_amount / 100, 2, ',', '.') }}</span>
+                            <span class="detail-value total">{{ $mail->order->total_amount }}</span>
                         </div>
                     </div>
                 </div>
