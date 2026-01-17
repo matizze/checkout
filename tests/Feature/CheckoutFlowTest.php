@@ -15,6 +15,7 @@ class CheckoutFlowTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        $this->withoutMiddleware();
         $this->product = Product::create([
             'name' => 'Produto Teste',
             'description' => 'Produto para teste de checkout',
@@ -49,7 +50,7 @@ class CheckoutFlowTest extends TestCase
         $customerData = [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ];
 
@@ -64,7 +65,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
 
@@ -82,7 +83,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
 
@@ -99,7 +100,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
 
@@ -116,7 +117,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
         $this->post(route('checkout.payment-method.store'), [
@@ -138,7 +139,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
         $this->post(route('checkout.payment-method.store'), [
@@ -168,7 +169,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
 
@@ -186,7 +187,7 @@ class CheckoutFlowTest extends TestCase
         $response = $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'invalid-email',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
 
@@ -207,7 +208,7 @@ class CheckoutFlowTest extends TestCase
         $response = $this->post(route('checkout.customer.store'), [
             'name' => '',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
 
@@ -228,6 +229,20 @@ class CheckoutFlowTest extends TestCase
         $response->assertSessionHasErrors('cpf_cnpj');
     }
 
+    public function test_customer_data_validation_invalid_cpf(): void
+    {
+        $this->get(route('checkout.start', $this->product));
+
+        $response = $this->post(route('checkout.customer.store'), [
+            'name' => 'João Silva',
+            'email' => 'joao@example.com',
+            'cpf_cnpj' => '12345678901',  // Invalid check digits
+            'phone' => '(11) 98765-4321',
+        ]);
+
+        $response->assertSessionHasErrors('cpf_cnpj');
+    }
+
     public function test_complete_pix_payment_flow(): void
     {
         // Step 1: View product
@@ -238,7 +253,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
 
@@ -262,7 +277,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
 
@@ -285,7 +300,7 @@ class CheckoutFlowTest extends TestCase
         $this->post(route('checkout.customer.store'), [
             'name' => 'João Silva',
             'email' => 'joao@example.com',
-            'cpf_cnpj' => '12345678901',
+            'cpf_cnpj' => '11144477735',
             'phone' => '(11) 98765-4321',
         ]);
         $this->post(route('checkout.payment-method.store'), [

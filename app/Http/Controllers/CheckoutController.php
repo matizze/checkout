@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Rules\CpfRule;
 use App\Services\AsaasService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -52,7 +53,7 @@ class CheckoutController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'cpf_cnpj' => 'required|string|min:11|max:14',
+            'cpf_cnpj' => ['required', 'string', new CpfRule],
             'phone' => 'nullable|string|max:20',
         ]);
 
