@@ -16,11 +16,20 @@ class Product extends Model
 
     public function getImageUrlAttribute(): string
     {
-        if (!$this->image) {
+        if (! $this->image) {
             return '';
         }
 
         $disk = config('filesystems.default');
+
         return Storage::disk($disk)->url($this->image);
+    }
+
+    /**
+     * Preço formatado em reais (converte centavos para reais)
+     */
+    public function getFormattedPriceAttribute(): string
+    {
+        return 'R$ '.number_format($this->price / 100, 2, ',', '.');
     }
 }

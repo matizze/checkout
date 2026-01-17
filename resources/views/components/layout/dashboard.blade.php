@@ -1,7 +1,7 @@
 @props(['title' => null])
 
 <x-layout.app :title="$title">
-    <div x-data="notifications"></div>
+    {{-- <div x-data="notifications"></div> --}}
     <div class="pt-3 h-full grid grid-cols-[200px_minmax(0,1fr)]">
         <aside class="flex flex-col items-center justify-between">
             <header class="flex flex-col items-center justify-center px-5 py-6 space-x-3 w-full">

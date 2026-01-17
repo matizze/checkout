@@ -9,6 +9,26 @@ use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     /**
+     * Converte preço brasileiro para centavos (ex: "123,90" → 12390)
+     */
+    private function toCents(string $price): int
+    {
+        $cleaned = preg_replace('/[^\d.,]/', '', trim($price));
+
+        if (! str_contains($cleaned, ',') && ! str_contains($cleaned, '.')) {
+            return (int) ($cleaned * 100); // Sem decimais, multiplica por 100
+        }
+
+        if (str_contains($cleaned, ',')) {
+            $decimal = (float) str_replace(',', '.', str_replace('.', '', $cleaned));
+
+            return (int) round($decimal * 100);
+        }
+
+        return (int) round(((float) $cleaned) * 100);
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()
@@ -36,12 +56,12 @@ class ProductController extends Controller
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
             'attachment' => ['nullable', 'file', 'max:10240'],
-            'price' => ['required', 'string', 'regex:/^\d{1,3}(\.\d{3})*,\d{2}$|^\d+,\d{2}$|^\d+$/'],
+            'price' => ['required', 'string', 'regex:/^[\d.,]+$/'],
         ]);
 
-        // Remove formatação brasileira do preço
+        // Converte preço brasileiro para decimal
         if (isset($validated['price'])) {
-            $validated['price'] = (float) str_replace(',', '.', str_replace('.', '', $validated['price']));
+            $validated['price'] = $this->toCents($validated['price']);
         }
 
         $disk = config('filesystems.default');
@@ -87,12 +107,12 @@ class ProductController extends Controller
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
             'attachment' => ['nullable', 'file', 'max:10240'],
-            'price' => ['required', 'string', 'regex:/^\d{1,3}(\.\d{3})*,\d{2}$|^\d+,\d{2}$|^\d+$/'],
+            'price' => ['required', 'string', 'regex:/^[\d.,]+$/'],
         ]);
 
-        // Remove formatação brasileira do preço
+        // Converte preço brasileiro para decimal
         if (isset($validated['price'])) {
-            $validated['price'] = (float) str_replace(',', '.', str_replace('.', '', $validated['price']));
+            $validated['price'] = $this->toCents($validated['price']);
         }
 
         $disk = config('filesystems.default');

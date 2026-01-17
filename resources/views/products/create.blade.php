@@ -63,9 +63,10 @@
 
             <div class="space-y-2" x-data="{
                 price: '{{ old('price', '0,00') }}',
-                unformatPrice(value) {
-                    if (!value) return 0;
-                    return parseFloat(value.replace(/\./g, '').replace(',', '.')) || 0;
+                toCents(value) {
+                    if (!value || value === '0,00' || value === '') return 0;
+                    const cleaned = value.replace(/\./g, '').replace(',', '.');
+                    return Math.round(parseFloat(cleaned) * 100) || 0;
                 }
             }">
                 <label for="price" class="text-sm font-semibold text-grayin-300">
@@ -84,7 +85,7 @@
                         required
                     >
                 </div>
-                <input type="hidden" name="price" :value="unformatPrice(price)">
+                <input type="hidden" name="price" :value="toCents(price)">
 
                 @error('price')
                     <p class="text-sm font-semibold text-feedback-danger">
