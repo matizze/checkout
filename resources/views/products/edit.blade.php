@@ -86,7 +86,7 @@
             </div>
 
             <div class="space-y-2" x-data="{
-                price: '{{ old('price', number_format($product->price ?? 0, 2, ',', '.')) ?: '0,00' }}',
+                price: '{{ old('price', number_format(($product->price ?? 0) / 100, 2, ',', '.')) ?: '0,00' }}',
                 toCents(value) {
                     if (!value || value === '0,00' || value === '') return 0;
                     const cleaned = value.replace(/\./g, '').replace(',', '.');

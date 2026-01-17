@@ -156,7 +156,7 @@ class CheckoutController extends Controller
             'subtotal' => $product->price,
         ]);
 
-        if ($product->price < 5) {
+        if ($product->price < 500) {
             return back()
                 ->with('error', 'Valor mínimo para pagamento é R$ 5,00')
                 ->withInput();
@@ -256,7 +256,7 @@ class CheckoutController extends Controller
 
         $product = Product::findOrFail($productId);
 
-        if ($product->price < 5) {
+        if ($product->price < 500) {
             return back()
                 ->with('error', 'Valor minimo para pagamento e R$ 5,00')
                 ->withInput();

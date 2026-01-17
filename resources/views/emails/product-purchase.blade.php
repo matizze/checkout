@@ -222,7 +222,7 @@
                         @if($mail->product->description)
                             <p style="color: #6b7280; font-size: 14px; margin-bottom: 12px;">{{ $mail->product->description }}</p>
                         @endif
-                        <div class="product-price">R$ {{ number_format($mail->product->price, 2, ',', '.') }}</div>
+                        <div class="product-price">R$ {{ number_format($mail->product->price / 100, 2, ',', '.') }}</div>
                     </div>
                 </div>
                 
@@ -249,7 +249,7 @@
                         </div>
                         <div class="detail-row">
                             <span class="detail-label">Total</span>
-                            <span class="detail-value total">R$ {{ number_format($mail->order->total_amount, 2, ',', '.') }}</span>
+                            <span class="detail-value total">R$ {{ number_format($mail->order->total_amount / 100, 2, ',', '.') }}</span>
                         </div>
                     </div>
                 </div>

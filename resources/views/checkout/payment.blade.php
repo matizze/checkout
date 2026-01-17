@@ -106,7 +106,7 @@
                     <div class="flex justify-between items-center py-2">
                         <span class="text-lg font-semibold text-on-surface dark:text-on-surface-dark">Total</span>
                         <span class="text-2xl font-bold text-primary dark:text-primary-dark">
-                            R$ {{ number_format($payment->amount, 2, ',', '.') }}
+                            R$ {{ number_format($payment->amount / 100, 2, ',', '.') }}
                         </span>
                     </div>
                 </div>

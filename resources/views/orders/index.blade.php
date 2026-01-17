@@ -47,7 +47,7 @@
 
                         <td class="px-4 py-4">
                             <span class="text-sm font-semibold text-blue-base">
-                                R$ {{ number_format($order->total_amount, 2, ',', '.') }}
+                                R$ {{ number_format($order->total_amount / 100, 2, ',', '.') }}
                             </span>
                         </td>
 
