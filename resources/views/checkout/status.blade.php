@@ -22,7 +22,11 @@
                         <x-lucide-clock class="size-10 text-warning dark:text-warning-dark" />
                     </div>
                     <h2 class="text-2xl font-bold text-warning mb-2 dark:text-warning-dark">Aguardando Pagamento</h2>
-                    <p class="text-on-surface-muted dark:text-on-surface-dark-muted">Estamos aguardando a confirmacao do seu pagamento PIX.</p>
+                    @if ($payment->billing_type === 'CREDIT_CARD')
+                        <p class="text-on-surface-muted dark:text-on-surface-dark-muted">Seu pagamento com cartao esta sendo processado.</p>
+                    @else
+                        <p class="text-on-surface-muted dark:text-on-surface-dark-muted">Estamos aguardando a confirmacao do seu pagamento PIX.</p>
+                    @endif
                 @elseif ($payment->status === 'OVERDUE')
                     <div class="flex items-center justify-center size-20 rounded-full bg-danger/20 mx-auto mb-6 dark:bg-danger-dark/20">
                         <x-lucide-alert-circle class="size-10 text-danger dark:text-danger-dark" />
@@ -58,7 +62,15 @@
 
                     <div class="flex justify-between items-center py-2 border-b border-outline dark:border-outline-dark">
                         <span class="text-on-surface-muted dark:text-on-surface-dark-muted">Metodo de Pagamento</span>
-                        <span class="text-on-surface dark:text-on-surface-dark">PIX</span>
+                        <span class="text-on-surface flex items-center dark:text-on-surface-dark">
+                            @if ($payment->billing_type === 'CREDIT_CARD')
+                                <x-lucide-credit-card class="size-4 mr-2 text-primary dark:text-primary-dark" />
+                                Cartao de Credito
+                            @else
+                                <x-lucide-landmark class="size-4 mr-2 text-success dark:text-success-dark" />
+                                PIX
+                            @endif
+                        </span>
                     </div>
 
                     <div class="flex justify-between items-center py-2">
@@ -97,7 +109,7 @@
 
         {{-- Acoes --}}
         <div class="mt-6 flex flex-col sm:flex-row gap-4">
-            @if ($payment->status === 'PENDING')
+            @if ($payment->status === 'PENDING' && $payment->billing_type === 'PIX')
                 <a
                     href="{{ route('checkout.payment') }}"
                     class="flex-1 flex items-center justify-center whitespace-nowrap rounded-radius bg-primary border border-primary px-4 py-3 text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 text-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark"

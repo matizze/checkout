@@ -35,6 +35,7 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
+            'attachment' => ['nullable', 'file', 'max:10240'],
             'price' => ['required', 'string', 'regex:/^\d{1,3}(\.\d{3})*,\d{2}$|^\d+,\d{2}$|^\d+$/'],
         ]);
 
@@ -43,9 +44,14 @@ class ProductController extends Controller
             $validated['price'] = (float) str_replace(',', '.', str_replace('.', '', $validated['price']));
         }
 
+        $disk = config('filesystems.default');
+
         if ($request->hasFile('image')) {
-            $disk = config('filesystems.default');
             $validated['image'] = $request->file('image')->store('products', $disk);
+        }
+
+        if ($request->hasFile('attachment')) {
+            $validated['attachment'] = $request->file('attachment')->store('attachments', $disk);
         }
 
         Product::create($validated);
@@ -80,6 +86,7 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
+            'attachment' => ['nullable', 'file', 'max:10240'],
             'price' => ['required', 'string', 'regex:/^\d{1,3}(\.\d{3})*,\d{2}$|^\d+,\d{2}$|^\d+$/'],
         ]);
 
@@ -88,15 +95,22 @@ class ProductController extends Controller
             $validated['price'] = (float) str_replace(',', '.', str_replace('.', '', $validated['price']));
         }
 
+        $disk = config('filesystems.default');
+
         if ($request->hasFile('image')) {
-            // Remove imagem antiga se existir
             if ($product->image) {
-                $disk = config('filesystems.default');
                 Storage::disk($disk)->delete($product->image);
             }
 
-            $disk = config('filesystems.default');
             $validated['image'] = $request->file('image')->store('products', $disk);
+        }
+
+        if ($request->hasFile('attachment')) {
+            if ($product->attachment) {
+                Storage::disk($disk)->delete($product->attachment);
+            }
+
+            $validated['attachment'] = $request->file('attachment')->store('attachments', $disk);
         }
 
         $product->update($validated);
@@ -111,10 +125,14 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // Remove imagem se existir
+        $disk = config('filesystems.default');
+
         if ($product->image) {
-            $disk = config('filesystems.default');
             Storage::disk($disk)->delete($product->image);
+        }
+
+        if ($product->attachment) {
+            Storage::disk($disk)->delete($product->attachment);
         }
 
         $product->delete();

@@ -170,6 +170,37 @@
                 @enderror
             </div>
 
+            <div class="space-y-2">
+                <label for="attachment" class="text-sm font-semibold text-grayin-300">
+                    Anexo do email (opcional)
+                </label>
+
+                <p class="text-xs text-grayin-400">
+                    Arquivo que será enviado como anexo no email de confirmação de compra (PDF, ZIP, etc.)
+                </p>
+
+                @if ($product->attachment)
+                    <div class="mb-2 flex items-center gap-2 text-sm text-grayin-300">
+                        <x-lucide-paperclip class="size-4" />
+                        <span>{{ basename($product->attachment) }}</span>
+                        <span class="text-xs text-grayin-400">(anexo atual)</span>
+                    </div>
+                @endif
+
+                <input
+                    type="file"
+                    id="attachment"
+                    name="attachment"
+                    class="w-full rounded-md bg-white border border-grayin-500 px-4 py-3 text-grayin-100 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-grayin-500 file:text-grayin-200 hover:file:bg-grayin-400"
+                >
+
+                @error('attachment')
+                    <p class="text-sm font-semibold text-feedback-danger">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </div>
+
             <div class="flex flex-wrap items-center justify-end gap-3 pt-2">
                 <x-button tag="a" variant="ghost" href="{{ route('products.show', $product) }}" class="px-4">
                     Voltar

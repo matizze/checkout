@@ -50,14 +50,14 @@ class AsaasService
     {
         // Log para debug
         \Log::info('Asaas API - Creating payment with data:', $data);
-        
+
         $response = Http::asaas()
             ->post('/payments', $data)
             ->throw()
             ->json();
-            
+
         \Log::info('Asaas API - Payment created:', $response);
-        
+
         return $response;
     }
 
@@ -103,11 +103,11 @@ class AsaasService
         if (empty($customerId)) {
             throw new \InvalidArgumentException('Customer ID is required');
         }
-        
+
         if ($value <= 0) {
             throw new \InvalidArgumentException('Value must be greater than 0');
         }
-        
+
         $data = [
             'customer' => $customerId,
             'billingType' => 'PIX',
@@ -118,6 +118,61 @@ class AsaasService
 
         if ($description) {
             $data['description'] = substr($description, 0, 255); // Limita tamanho
+        }
+
+        return $this->createPayment($data);
+    }
+
+    /**
+     * Criar cobranca com cartao de credito.
+     *
+     * @param  string  $customerId  ID do cliente no Asaas
+     * @param  float  $value  Valor em reais
+     * @param  string  $dueDate  Data de vencimento (YYYY-MM-DD)
+     * @param  array  $creditCard  Dados do cartao [holder_name, number, expiry_month, expiry_year, cvv]
+     * @param  array  $holderInfo  Dados do titular [name, email, cpf_cnpj, postal_code, address_number, phone]
+     * @param  string|null  $description  Descricao da cobranca
+     */
+    public function createCreditCardPayment(
+        string $customerId,
+        float $value,
+        string $dueDate,
+        array $creditCard,
+        array $holderInfo,
+        ?string $description = null
+    ): array {
+        if (empty($customerId)) {
+            throw new \InvalidArgumentException('Customer ID is required');
+        }
+
+        if ($value <= 0) {
+            throw new \InvalidArgumentException('Value must be greater than 0');
+        }
+
+        $data = [
+            'customer' => $customerId,
+            'billingType' => 'CREDIT_CARD',
+            'value' => round($value, 2),
+            'dueDate' => $dueDate,
+            'creditCard' => [
+                'holderName' => $creditCard['holder_name'],
+                'number' => preg_replace('/\D/', '', $creditCard['number']),
+                'expiryMonth' => $creditCard['expiry_month'],
+                'expiryYear' => $creditCard['expiry_year'],
+                'ccv' => $creditCard['cvv'],
+            ],
+            'creditCardHolderInfo' => [
+                'name' => $holderInfo['name'],
+                'email' => $holderInfo['email'],
+                'cpfCnpj' => preg_replace('/\D/', '', $holderInfo['cpf_cnpj']),
+                'postalCode' => preg_replace('/\D/', '', $holderInfo['postal_code'] ?? '00000000'),
+                'addressNumber' => $holderInfo['address_number'] ?? '0',
+                'phone' => preg_replace('/\D/', '', $holderInfo['phone'] ?? ''),
+            ],
+        ];
+
+        if ($description) {
+            $data['description'] = substr($description, 0, 255);
         }
 
         return $this->createPayment($data);

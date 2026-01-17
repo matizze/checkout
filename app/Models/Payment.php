@@ -11,6 +11,7 @@ class Payment extends Model
         'order_id',
         'asaas_id',
         'billing_type',
+        'installments',
         'amount',
         'status',
         'due_date',

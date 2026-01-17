@@ -11,12 +11,17 @@ Route::get('/', fn () => Auth::check() ? redirect()->route('products.index') : r
 
 // Checkout routes (public)
 Route::prefix('checkout')->name('checkout.')->group(function () {
-    Route::get('/{product}', [CheckoutController::class, 'start'])->name('start');
-    Route::get('/dados/cliente', [CheckoutController::class, 'customer'])->name('customer');
-    Route::post('/dados/cliente', [CheckoutController::class, 'storeCustomer'])->name('customer.store');
-    Route::get('/pagamento/pix', [CheckoutController::class, 'payment'])->name('payment');
+    Route::get('/customer', [CheckoutController::class, 'customer'])->name('customer');
+    Route::post('/customer', [CheckoutController::class, 'storeCustomer'])->name('customer.store');
+    Route::get('/payment-method', [CheckoutController::class, 'paymentMethod'])->name('payment-method');
+    Route::post('/payment-method', [CheckoutController::class, 'storePaymentMethod'])->name('payment-method.store');
+    Route::get('/payment', [CheckoutController::class, 'payment'])->name('payment');
+    Route::get('/credit-card', [CheckoutController::class, 'creditCard'])->name('credit-card');
+    Route::post('/credit-card', [CheckoutController::class, 'processCreditCard'])->name('credit-card.process');
+    Route::get('/credit-card/error', [CheckoutController::class, 'creditCardError'])->name('credit-card.error');
     Route::get('/status/{payment}', [CheckoutController::class, 'status'])->name('status');
     Route::get('/status/{payment}/check', [CheckoutController::class, 'checkStatus'])->name('status.check');
+    Route::get('/{product}', [CheckoutController::class, 'start'])->name('start');
 });
 
 Route::group(['middleware' => 'auth'], function () {
