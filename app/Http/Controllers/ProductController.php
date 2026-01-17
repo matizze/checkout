@@ -35,8 +35,13 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
-            'price' => ['required', 'numeric', 'min:0'],
+            'price' => ['required', 'string', 'regex:/^\d{1,3}(\.\d{3})*,\d{2}$|^\d+,\d{2}$|^\d+$/'],
         ]);
+
+        // Remove formatação brasileira do preço
+        if (isset($validated['price'])) {
+            $validated['price'] = (float) str_replace(',', '.', str_replace('.', '', $validated['price']));
+        }
 
         if ($request->hasFile('image')) {
             $disk = config('filesystems.default');
@@ -75,8 +80,13 @@ class ProductController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'image' => ['nullable', 'image', 'max:2048'],
-            'price' => ['required', 'numeric', 'min:0'],
+            'price' => ['required', 'string', 'regex:/^\d{1,3}(\.\d{3})*,\d{2}$|^\d+,\d{2}$|^\d+$/'],
         ]);
+
+        // Remove formatação brasileira do preço
+        if (isset($validated['price'])) {
+            $validated['price'] = (float) str_replace(',', '.', str_replace('.', '', $validated['price']));
+        }
 
         if ($request->hasFile('image')) {
             // Remove imagem antiga se existir

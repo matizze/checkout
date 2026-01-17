@@ -64,13 +64,26 @@
             <div class="space-y-2" x-data="{
                 price: '{{ old('price', '0,00') }}',
                 formatPrice(value) {
+                    // Remove tudo exceto números e vírgula
                     let cleaned = value.replace(/[^0-9,]/g, '');
+                    
+                    // Permite apenas uma vírgula
                     let parts = cleaned.split(',');
-                    let integerPart = parts[0].replace(/\./g, '');
+                    if (parts.length > 2) {
+                        cleaned = parts[0] + ',' + parts.slice(1).join('');
+                    }
+                    
+                    parts = cleaned.split(',');
+                    let integerPart = parts[0] || '0';
                     let decimalPart = parts[1] || '';
 
+                    // Remove zeros desnecessários no início
+                    integerPart = integerPart.replace(/^0+/, '') || '0';
+
+                    // Adiciona separadores de milhar
                     integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
+                    // Limita a 2 casas decimais
                     if (decimalPart.length > 2) {
                         decimalPart = decimalPart.substring(0, 2);
                     }
