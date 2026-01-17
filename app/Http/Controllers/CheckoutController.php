@@ -156,7 +156,7 @@ class CheckoutController extends Controller
             'subtotal' => $product->price,
         ]);
 
-        if ($product->price < 500) {
+        if ((int) $product->getRawOriginal('price') < 500) {
             return back()
                 ->with('error', 'Valor mínimo para pagamento é R$ 5,00')
                 ->withInput();
@@ -168,7 +168,7 @@ class CheckoutController extends Controller
         try {
             $asaasPayment = $asaas->createPixPayment(
                 $asaasCustomer['id'],
-                (float) ($product->price / 100),
+                (float) ($product->getRawOriginal('price') / 100),
                 $dueDate,
                 "Pedido #{$order->id} - {$product->name}"
             );
@@ -256,7 +256,7 @@ class CheckoutController extends Controller
 
         $product = Product::findOrFail($productId);
 
-        if ($product->price < 500) {
+        if ((int) $product->getRawOriginal('price') < 500) {
             return back()
                 ->with('error', 'Valor minimo para pagamento e R$ 5,00')
                 ->withInput();
@@ -297,7 +297,7 @@ class CheckoutController extends Controller
         try {
             $asaasPayment = $asaas->createCreditCardPayment(
                 $asaasCustomer['id'],
-                (float) ($product->price / 100),
+                (float) ($product->getRawOriginal('price') / 100),
                 $dueDate,
                 [
                     'holder_name' => $request->card_holder_name,

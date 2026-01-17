@@ -64,7 +64,7 @@ class ProductPurchaseMail extends Mailable implements ShouldQueue
         return "Olá {$this->customer->name},\n\n".
                "Sua compra do produto {$this->product->name} foi confirmada!\n".
                "Pedido: #{$this->order->id}\n".
-               'Total: R$ '.number_format($this->order->total_amount / 100, 2, ',', '.')."\n\n".
+               'Total: '.$this->order->total_amount."\n\n".
                'Obrigado pela compra!';
     }
 }
