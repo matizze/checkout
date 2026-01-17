@@ -130,7 +130,7 @@
                 <div class="pt-3 border-t border-grayin-500">
                     <p class="text-sm text-grayin-400">Total</p>
                     <p class="text-2xl font-bold text-blue-base">
-                        R$ {{ number_format($order->total_amount / 100, 2, ',', '.') }}
+                        {{ $order->total_amount }}
                     </p>
                 </div>
             </div>
@@ -174,10 +174,10 @@
                                 {{ $item->quantity }}
                             </td>
                             <td class="px-4 py-3 text-right text-grayin-200">
-                                R$ {{ number_format($item->unit_price / 100, 2, ',', '.') }}
+                                {{ $item->unit_price }}
                             </td>
                             <td class="px-4 py-3 text-right font-semibold text-grayin-200">
-                                R$ {{ number_format($item->subtotal / 100, 2, ',', '.') }}
+                                {{ $item->subtotal }}
                             </td>
                         </tr>
                     @endforeach
@@ -188,7 +188,7 @@
                             Total
                         </td>
                         <td class="px-4 py-3 text-right text-lg font-bold text-blue-base">
-                            R$ {{ number_format($order->total_amount / 100, 2, ',', '.') }}
+                            {{ $order->total_amount }}
                         </td>
                     </tr>
                 </tfoot>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -15,10 +16,13 @@ class OrderItem extends Model
         'subtotal',
     ];
 
-    protected $casts = [
-        'unit_price' => 'integer', // Preço unitário em centavos
-        'subtotal' => 'integer', // Subtotal em centavos
-    ];
+    protected function casts(): array
+    {
+        return [
+            'unit_price' => MoneyCast::class,
+            'subtotal' => MoneyCast::class,
+        ];
+    }
 
     public function order(): BelongsTo
     {

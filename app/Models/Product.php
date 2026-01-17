@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 
@@ -14,6 +15,13 @@ class Product extends Model
         'price',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'price' => MoneyCast::class,
+        ];
+    }
+
     public function getImageUrlAttribute(): string
     {
         if (! $this->image) {
@@ -23,13 +31,5 @@ class Product extends Model
         $disk = config('filesystems.default');
 
         return Storage::disk($disk)->url($this->image);
-    }
-
-    /**
-     * Preço formatado em reais (converte centavos para reais)
-     */
-    public function getFormattedPriceAttribute(): string
-    {
-        return 'R$ '.number_format($this->price / 100, 2, ',', '.');
     }
 }

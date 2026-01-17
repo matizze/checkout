@@ -82,7 +82,7 @@
                     <div class="flex justify-between items-center">
                         <span class="text-on-surface-muted dark:text-on-surface-dark-muted">Total</span>
                         <span class="text-xl font-bold text-primary dark:text-primary-dark">
-                            R$ {{ number_format($product->price / 100, 2, ',', '.') }}
+                            {{ $product->price }}
                         </span>
                     </div>
                 </div>

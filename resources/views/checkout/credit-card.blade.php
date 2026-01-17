@@ -187,7 +187,7 @@
                         >
                             <span x-show="!isSubmitting" class="flex items-center">
                                 <x-lucide-lock class="size-4 mr-2" />
-                                Pagar R$ {{ number_format($product->price / 100, 2, ',', '.') }}
+                                Pagar {{ $product->price }}
                             </span>
                             <span x-show="isSubmitting" class="flex items-center">
                                 <x-lucide-loader-2 class="size-4 mr-2 animate-spin" />
@@ -218,7 +218,7 @@
                     <div class="flex justify-between items-center">
                         <span class="text-on-surface-muted dark:text-on-surface-dark-muted">Subtotal</span>
                         <span class="text-on-surface dark:text-on-surface-dark">
-                            R$ {{ number_format($product->price / 100, 2, ',', '.') }}
+                            {{ $product->price }}
                         </span>
                     </div>
                 </div>
@@ -227,7 +227,7 @@
                     <div class="flex justify-between items-center">
                         <span class="text-lg font-semibold text-on-surface dark:text-on-surface-dark">Total</span>
                         <span class="text-xl font-bold text-primary dark:text-primary-dark">
-                            R$ {{ number_format($product->price / 100, 2, ',', '.') }}
+                            {{ $product->price }}
                         </span>
                     </div>
                 </div>

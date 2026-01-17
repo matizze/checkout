@@ -10,53 +10,53 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #374151;
             background-color: #f9fafb;
         }
-        
+
         .container {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         .card {
             background: white;
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
-        
+
         .header {
             background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             padding: 32px;
             text-align: center;
         }
-        
+
         .header h1 {
             color: white;
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 8px;
         }
-        
+
         .header p {
             color: rgba(255, 255, 255, 0.9);
             font-size: 16px;
         }
-        
+
         .content {
             padding: 32px;
         }
-        
+
         .section {
             margin-bottom: 24px;
         }
-        
+
         .section h2 {
             color: #1f2937;
             font-size: 18px;
@@ -66,7 +66,7 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         .product-card {
             border: 1px solid #e5e7eb;
             border-radius: 8px;
@@ -74,27 +74,27 @@
             margin-bottom: 16px;
             background: #f9fafb;
         }
-        
+
         .product-name {
             font-size: 18px;
             font-weight: 600;
             color: #1f2937;
             margin-bottom: 8px;
         }
-        
+
         .product-price {
             font-size: 24px;
             font-weight: 700;
             color: #3b82f6;
         }
-        
+
         .order-details {
             background: #f9fafb;
             border-radius: 8px;
             padding: 20px;
             border: 1px solid #e5e7eb;
         }
-        
+
         .detail-row {
             display: flex;
             justify-content: space-between;
@@ -102,30 +102,30 @@
             padding: 8px 0;
             border-bottom: 1px solid #e5e7eb;
         }
-        
+
         .detail-row:last-child {
             border-bottom: none;
             padding-top: 16px;
             margin-top: 8px;
             border-top: 2px solid #3b82f6;
         }
-        
+
         .detail-label {
             color: #6b7280;
             font-size: 14px;
             font-weight: 500;
         }
-        
+
         .detail-value {
             color: #1f2937;
             font-weight: 600;
         }
-        
+
         .detail-value.total {
             color: #3b82f6;
             font-size: 20px;
         }
-        
+
         .message {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
             border: 1px solid #f59e0b;
@@ -133,30 +133,30 @@
             padding: 20px;
             margin-bottom: 24px;
         }
-        
+
         .message-text {
             color: #92400e;
             white-space: pre-line;
         }
-        
+
         .footer {
             text-align: center;
             padding: 24px;
             background: #f9fafb;
             border-top: 1px solid #e5e7eb;
         }
-        
+
         .footer-text {
             color: #6b7280;
             font-size: 14px;
         }
-        
+
         .icon {
             width: 20px;
             height: 20px;
             display: inline-block;
         }
-        
+
         .badge {
             display: inline-block;
             padding: 4px 12px;
@@ -167,20 +167,20 @@
             font-weight: 600;
             text-transform: uppercase;
         }
-        
+
         @media (max-width: 640px) {
             .container {
                 padding: 10px;
             }
-            
+
             .header {
                 padding: 24px;
             }
-            
+
             .content {
                 padding: 24px;
             }
-            
+
             .detail-row {
                 flex-direction: column;
                 align-items: flex-start;
@@ -197,7 +197,7 @@
                 <h1>🎉 Compra Confirmada!</h1>
                 <p>Obrigado por comprar conosco</p>
             </div>
-            
+
             <!-- Content -->
             <div class="content">
                 <!-- Custom Message -->
@@ -208,7 +208,7 @@
                         </div>
                     </div>
                 @endif
-                
+
                 <!-- Product Info -->
                 <div class="section">
                     <h2>
@@ -222,10 +222,10 @@
                         @if($mail->product->description)
                             <p style="color: #6b7280; font-size: 14px; margin-bottom: 12px;">{{ $mail->product->description }}</p>
                         @endif
-                        <div class="product-price">R$ {{ number_format($mail->product->price / 100, 2, ',', '.') }}</div>
+                        <div class="product-price">{{ $mail->product->price }}</div>
                     </div>
                 </div>
-                
+
                 <!-- Order Details -->
                 <div class="section">
                     <h2>
@@ -253,7 +253,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Attachment Notice -->
                 @if($mail->product->attachment)
                     <div class="section">
@@ -270,7 +270,7 @@
                     </div>
                 @endif
             </div>
-            
+
             <!-- Footer -->
             <div class="footer">
                 <p class="footer-text">

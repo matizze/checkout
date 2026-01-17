@@ -59,7 +59,7 @@
 
                         <td class="px-4 py-4">
                             <span class="text-sm text-grayin-200">
-                                R$ {{ number_format($product->price / 100, 2, ',', '.') }}
+                                {{ $product->price }}
                             </span>
                         </td>
 

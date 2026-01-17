@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\MoneyCast;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -20,11 +21,15 @@ class Payment extends Model
         'paid_at',
     ];
 
-    protected $casts = [
-        'amount' => 'integer', // Valor em centavos        'installments' => 'integer',
-        'due_date' => 'date',
-        'paid_at' => 'datetime',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'amount' => MoneyCast::class,
+            'installments' => 'integer',
+            'due_date' => 'date',
+            'paid_at' => 'datetime',
+        ];
+    }
 
     public function order(): BelongsTo
     {

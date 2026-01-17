@@ -85,7 +85,7 @@
 
                 <div class="space-y-1">
                     <p class="text-sm font-medium text-grayin-400">Preço</p>
-                     <p class="text-2xl font-bold text-blue-base">{{ $product->formatted_price }}</p>
+                     <p class="text-2xl font-bold text-blue-base">{{ $product->price }}</p>
                 </div>
 
                 <div class="space-y-1 sm:col-span-2">
