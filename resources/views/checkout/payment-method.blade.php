@@ -39,6 +39,7 @@
                         </button>
 
                         {{-- Opcao Cartao de Credito --}}
+                        {{--
                         <button
                             type="button"
                             @click="selected = 'credit_card'"
@@ -54,7 +55,6 @@
                             <span class="text-lg font-semibold text-on-surface dark:text-on-surface-dark">Cartao de Credito</span>
                             <span class="text-sm text-on-surface-muted mt-1 dark:text-on-surface-dark-muted">Pague com seu cartao</span>
 
-                            {{-- Indicador de selecao --}}
                             <div
                                 x-show="selected === 'credit_card'"
                                 class="absolute top-3 right-3"
@@ -64,6 +64,7 @@
                                 </div>
                             </div>
                         </button>
+                         --}}
                     </div>
 
                     @error('payment_method')
