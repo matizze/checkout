@@ -24,18 +24,18 @@ class MoneyCast implements CastsAttributes
      */
     public function set(Model $model, string $key, mixed $value, array $attributes): int
     {
-        if (is_string($value)) {
-            $cleaned = preg_replace('/[^\d.,]/', '', $value);
-
-            if (str_contains($cleaned, ',')) {
-                $decimal = (float) str_replace(',', '.', str_replace('.', '', $cleaned));
-
-                return (int) round($decimal * 100);
-            }
-
-            return (int) round(((float) $cleaned) * 100);
+        if (! \is_string($value)) {
+            return (int) $value;
         }
 
-        return (int) $value;
+        $cleaned = preg_replace('/[^\d.,]/', '', $value);
+
+        if (str_contains($cleaned, ',')) {
+            $decimal = (float) str_replace(',', '.', str_replace('.', '', $cleaned));
+
+            return (int) round($decimal * 100);
+        }
+
+        return (int) round(((float) $cleaned) * 100);
     }
 }
