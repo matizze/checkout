@@ -13,17 +13,17 @@
         </div>
 
         <div class="flex flex-wrap items-center gap-2">
-            <button
-                x-data="{ 
-                    checkoutUrl: '{{ route('checkout.start', $product) }}',
-                    copied: false
-                }"
-                @click="$clipboard(checkoutUrl); copied = true; setTimeout(() => copied = false, 2000)"
-                class="flex items-center justify-center cursor-pointer size-9 bg-grayin-500 rounded"
-                :class="{ 'bg-green-500': copied }"
-                :title="copied ? 'Copiado!' : 'Copiar link checkout'"
-            >
-                <x-lucide-check class="size-4" x-show="copied" />
+             <button
+                 x-data="{
+                     checkoutUrl: '{{ route('checkout.start', $product) }}',
+                     copied: false
+                 }"
+                 @click="$clipboard(checkoutUrl).then(() => { copied = true; setTimeout(() => copied = false, 2000) })"
+                 class="flex items-center justify-center cursor-pointer size-9 bg-grayin-500 rounded"
+                 :class="{ 'bg-green-500/10': copied }"
+                 :title="copied ? 'Copiado!' : 'Copiar link checkout'"
+             >
+                <x-lucide-check class="size-4 text-green-500" x-show="copied" />
                 <x-lucide-link class="size-4" x-show="!copied" />
             </button>
 

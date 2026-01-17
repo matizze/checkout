@@ -28,7 +28,7 @@
                     </div>
                 @endif
 
-                <div class="space-y-4" x-data="{ copied: false }">
+                 <div class="space-y-4" x-data="{ copied: false }">
                     <p class="text-sm text-on-surface-muted dark:text-on-surface-dark-muted">Ou copie o codigo PIX:</p>
 
                     <div class="relative">
@@ -39,13 +39,14 @@
                             readonly
                             class="w-full rounded-radius border border-outline bg-surface-alt px-4 py-3 text-sm text-on-surface pr-24 dark:border-outline-dark dark:bg-surface-dark-alt/50 dark:text-on-surface-dark"
                         >
-                        <button
-                            type="button"
-                            @click="navigator.clipboard.writeText($refs.pixCode.value); copied = true; setTimeout(() => copied = false, 2000)"
-                            class="absolute right-2 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-radius bg-primary border border-primary px-3 py-1.5 text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark"
-                        >
-                            <span x-text="copied ? 'Copiado!' : 'Copiar'"></span>
-                        </button>
+                          <button
+                              type="button"
+                              @click="$clipboard($refs.pixCode.value).then(() => { copied = true; setTimeout(() => copied = false, 2000) })"
+                              class="absolute right-2 top-1/2 -translate-y-1/2 whitespace-nowrap rounded-radius bg-primary border border-primary px-3 py-1.5 text-sm font-medium tracking-wide text-on-primary transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary active:opacity-100 active:outline-offset-0 dark:bg-primary-dark dark:border-primary-dark dark:text-on-primary-dark dark:focus-visible:outline-primary-dark"
+                              :class="{ 'bg-green-500/10 border-green-500/10': copied }"
+                          >
+                             <span x-text="copied ? 'Copiado!' : 'Copiar'" :class="{ 'text-green-500': copied }"></span>
+                         </button>
                     </div>
                 </div>
 

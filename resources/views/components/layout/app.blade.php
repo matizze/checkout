@@ -14,5 +14,7 @@
         <main class="h-screen bg-grayin-100">
             {{ $slot }}
         </main>
+
+
     </body>
 </html>

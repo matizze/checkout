@@ -65,16 +65,16 @@
 
                         <td class="flex gap-2 px-4 py-4">
                             <button
-                                x-data="{ 
+                                x-data="{
                                     checkoutUrl: '{{ route('checkout.start', $product) }}',
                                     copied: false
                                 }"
-                                @click="$clipboard(checkoutUrl); copied = true; setTimeout(() => copied = false, 2000)"
+                                @click="$clipboard(checkoutUrl).then(() => { copied = true; setTimeout(() => copied = false, 2000) })"
                                 class="flex items-center justify-center cursor-pointer size-7 bg-grayin-500 rounded"
-                                :class="{ 'bg-green-500': copied }"
+                                :class="{ 'bg-green-500/10': copied }"
                                 :title="copied ? 'Copiado!' : 'Copiar link checkout'"
                             >
-                                <x-lucide-check class="size-3" x-show="copied" />
+                                <x-lucide-check class="size-3 text-green-500" x-show="copied" />
                                 <x-lucide-link class="size-3" x-show="!copied" />
                             </button>
 
