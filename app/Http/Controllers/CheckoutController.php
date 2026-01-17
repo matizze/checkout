@@ -116,6 +116,12 @@ class CheckoutController extends Controller
             'subtotal' => $product->price,
         ]);
 
+        if ($product->price < 5) {
+            return back()
+                ->with('error', 'Valor mínimo para pagamento é R$ 5,00')
+                ->withInput();
+        }
+
         // Criar cobranca PIX no Asaas
         $dueDate = now()->addDays(1)->format('Y-m-d');
 
