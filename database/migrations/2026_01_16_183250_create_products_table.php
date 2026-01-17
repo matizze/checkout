@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->integer('price'); // Preço em centavos (12390 = R$ 123,90)
+            $table->string('attachment')->nullable();
             $table->timestamps();
         });
     }

@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
             $table->string('asaas_id')->unique()->nullable();
-            $table->enum('billing_type', ['PIX', 'CREDIT_CARD', 'BOLETO'])->default('PIX');
-            $table->decimal('amount', 10, 2);
+            $table->string('billing_type')->default('PIX'); // PIX, CREDIT_CARD, BOLETO
+            $table->tinyInteger('installments')->default(1);
+            $table->integer('amount'); // Valor em centavos
             $table->string('status')->default('PENDING');
             $table->date('due_date');
             $table->text('pix_payload')->nullable();

@@ -168,7 +168,7 @@ class CheckoutController extends Controller
         try {
             $asaasPayment = $asaas->createPixPayment(
                 $asaasCustomer['id'],
-                (float) $product->price,
+                (float) ($product->price / 100),
                 $dueDate,
                 "Pedido #{$order->id} - {$product->name}"
             );
@@ -297,7 +297,7 @@ class CheckoutController extends Controller
         try {
             $asaasPayment = $asaas->createCreditCardPayment(
                 $asaasCustomer['id'],
-                (float) $product->price,
+                (float) ($product->price / 100),
                 $dueDate,
                 [
                     'holder_name' => $request->card_holder_name,

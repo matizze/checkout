@@ -16,7 +16,7 @@ class Order extends Model
     ];
 
     protected $casts = [
-        'total_amount' => 'decimal:2',
+        'total_amount' => 'integer', // Valor total em centavos
     ];
 
     public function customer(): BelongsTo

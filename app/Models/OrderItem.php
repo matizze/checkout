@@ -16,8 +16,8 @@ class OrderItem extends Model
     ];
 
     protected $casts = [
-        'unit_price' => 'decimal:2',
-        'subtotal' => 'decimal:2',
+        'unit_price' => 'integer', // Preço unitário em centavos
+        'subtotal' => 'integer', // Subtotal em centavos
     ];
 
     public function order(): BelongsTo

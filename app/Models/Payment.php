@@ -21,7 +21,7 @@ class Payment extends Model
     ];
 
     protected $casts = [
-        'amount' => 'decimal:2',
+        'amount' => 'integer', // Valor em centavos        'installments' => 'integer',
         'due_date' => 'date',
         'paid_at' => 'datetime',
     ];
